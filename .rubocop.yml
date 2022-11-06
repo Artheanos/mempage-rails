@@ -1,0 +1,19 @@
+AllCops:
+  TargetRubyVersion: 3.0.0
+  NewCops: enable
+  Exclude:
+    - log/**/*
+    - tmp/**/*
+    - bin/**/*
+    - node_modules/**/*
+    - db/data_schema.rb
+    - db/schema.rb
+    - db/migrate/*
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - spec/**/*.rb
