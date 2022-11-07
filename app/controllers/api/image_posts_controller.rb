@@ -8,7 +8,7 @@ module Api
       result = if params[:after]
                  ImagePost.where("id > #{params[:after]}")
                else
-                 ImagePost.page(params[:page] || 1)
+                 ImagePost.page(params[:page] || 1).includes(:user, :comments, image_attachment: :blob)
                end
 
       render json: result.order(id: :desc)
