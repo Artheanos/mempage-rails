@@ -26,9 +26,7 @@ module Api
       end
 
       def http_auth_header
-        return headers['Authentication'].split.last if headers['Authentication'].present?
-
-        nil
+        headers['Authentication']&.split&.last
       end
     end
   end

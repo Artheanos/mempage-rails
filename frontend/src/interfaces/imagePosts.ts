@@ -1,4 +1,4 @@
-import { User } from "./users";
+import { User } from "./auth";
 
 export interface ImagePost {
   id: string

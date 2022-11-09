@@ -1,16 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
+import { UserContextProvider } from "./contexts/UserContext";
+import { BarLayout } from "./layouts/BarLayout";
+import { localRoutes } from "./api/routesBuilder";
+import { AddPostPage } from "./pages/posts/AddPostPage/AddPostPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const router = createBrowserRouter([
+  {
+    path: localRoutes.root,
+    element: <BarLayout/>,
+    children: [
+      {
+        path: localRoutes.imagePosts.root,
+        element: <PostsPage/>
+      },
+      {
+        path: localRoutes.login,
+        element: <LoginPage/>
+      },
+      {
+        path: localRoutes.imagePosts.add,
+        element: <AddPostPage/>
+      }
+    ]
+  }
+]);
 
-  return (
-    <div className="App">
-      <PostsPage/>
-    </div>
-  )
-}
-
-export default App
+export const App = () => (
+  <UserContextProvider>
+    <RouterProvider router={router}/>
+  </UserContextProvider>
+);
