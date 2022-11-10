@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import {
   AppBar,
   Box,
@@ -9,17 +9,18 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography,
-  useTheme
+  Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { localRoutes } from "../api/routesBuilder";
 import { UploadFile, VerifiedUser } from "@mui/icons-material";
+import { UserContext } from "../contexts/UserContext";
 
 export const BarLayout: FC = () => {
   const [open, setOpen] = useState(false)
+  const onClose = () => setOpen(false)
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -42,13 +43,12 @@ export const BarLayout: FC = () => {
       </AppBar>
       <Drawer
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={onClose}
       >
         <List
           sx={{ paddingTop: '2rem', minWidth: '12rem' }}
         >
-          <Entry path={localRoutes.imagePosts.add} title={'Upload'} icon={<UploadFile/>}/>
-          <Entry path={localRoutes.login} title={'Login'} icon={<VerifiedUser/>}/>
+          {useConfig(onClose)}
         </List>
       </Drawer>
       <div className="BarLayout-container">
@@ -58,12 +58,16 @@ export const BarLayout: FC = () => {
   )
 }
 
-
-const Entry: FC<{ path: string, title: string, icon: JSX.Element }> = ({ path, title, icon }) => {
+const Entry: FC<{ path: string, title: string, icon: JSX.Element, onClose: () => void }> = ({
+  path,
+  title,
+  icon,
+  onClose
+}) => {
   const active = useLocation().pathname.startsWith(path)
 
   return (
-    <Link to={path} className="disable-blue">
+    <Link to={path} className="disable-blue" onClick={onClose}>
       <ListItemButton selected={active} sx={{ paddingX: '1.5rem' }}>
         <ListItemIcon>
           {icon}
@@ -72,4 +76,13 @@ const Entry: FC<{ path: string, title: string, icon: JSX.Element }> = ({ path, t
       </ListItemButton>
     </Link>
   )
+}
+
+const useConfig = (onClose: () => void) => {
+  const { user } = useContext(UserContext)
+
+  return [
+    <Entry path={localRoutes.imagePosts.add} title={'Upload'} icon={<UploadFile/>} onClose={onClose}/>,
+    !user.token && <Entry path={localRoutes.login} title={'Login'} icon={<VerifiedUser/>} onClose={onClose}/>,
+  ].filter(Boolean)
 }
