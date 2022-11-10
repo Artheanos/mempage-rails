@@ -1,11 +1,15 @@
-import './App.css'
-import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
-import { UserContextProvider } from "./contexts/UserContext";
-import { BarLayout } from "./layouts/BarLayout";
-import { localRoutes } from "./api/routesBuilder";
+
+import './App.css'
 import { AddPostPage } from "./pages/posts/AddPostPage/AddPostPage";
+import { BarLayout } from "./layouts/BarLayout";
+import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
+import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
+import { localRoutes } from "./api/routesBuilder";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useContext } from "react";
+import { UserContext } from "./contexts/UserContext";
+import { LogoutPage } from "./pages/auth/LogoutPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,10 @@ const router = createBrowserRouter([
         element: <LoginPage/>
       },
       {
+        path: localRoutes.logout,
+        element: <LogoutPage/>
+      },
+      {
         path: localRoutes.imagePosts.add,
         element: <AddPostPage/>
       }
@@ -29,7 +37,9 @@ const router = createBrowserRouter([
 ]);
 
 export const App = () => (
-  <UserContextProvider>
+  <ThemeProvider
+    theme={useContext(UserContext).theme}>
+    <CssBaseline/>
     <RouterProvider router={router}/>
-  </UserContextProvider>
-);
+  </ThemeProvider>
+)

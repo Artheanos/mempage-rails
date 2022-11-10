@@ -17,5 +17,6 @@ export const localRoutes = {
     add: '/upload',
     root: '/',
   },
-  login: '/login'
+  login: '/login',
+  logout: '/logout',
 }

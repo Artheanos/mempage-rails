@@ -1,7 +1,5 @@
 #root {
-  max-width: 50rem;
   width: 100%;
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -23,10 +21,4 @@
   display: flex;
   justify-content: right;
   gap: 2rem;
-}
-
-.BarLayout-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 5rem;
 }

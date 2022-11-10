@@ -2,6 +2,7 @@ import { FC, useContext, useState } from "react";
 import {
   AppBar,
   Box,
+  Button,
   Drawer,
   IconButton,
   List,
@@ -9,21 +10,22 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { localRoutes } from "../api/routesBuilder";
-import { UploadFile, VerifiedUser } from "@mui/icons-material";
+import { StarHalf, UploadFile, VerifiedUser, WbSunny } from "@mui/icons-material";
 import { UserContext } from "../contexts/UserContext";
 
 export const BarLayout: FC = () => {
   const [open, setOpen] = useState(false)
   const onClose = () => setOpen(false)
+  const { theme, toggleMode } = useContext(UserContext)
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton
@@ -39,6 +41,9 @@ export const BarLayout: FC = () => {
           <Typography variant="h6" component="div">
             <Link className="disable-blue" to={localRoutes.root}>Mempage Rails</Link>
           </Typography>
+          <Button sx={{ ml: 'auto', color: theme.palette.common.white }} onClick={toggleMode}>
+            {theme.palette.mode === 'dark' ? <WbSunny/> : <StarHalf/>}
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -51,9 +56,15 @@ export const BarLayout: FC = () => {
           {useConfig(onClose)}
         </List>
       </Drawer>
-      <div className="BarLayout-container">
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: 'auto',
+        maxWidth: '50rem',
+        paddingTop: '5rem',
+      }}>
         <Outlet/>
-      </div>
+      </Box>
     </Box>
   )
 }
@@ -78,11 +89,37 @@ const Entry: FC<{ path: string, title: string, icon: JSX.Element, onClose: () =>
   )
 }
 
+interface EntryConfig {
+  path: string
+  title: string
+  icon: JSX.Element
+  visible?: boolean
+}
+
 const useConfig = (onClose: () => void) => {
   const { user } = useContext(UserContext)
 
-  return [
-    <Entry path={localRoutes.imagePosts.add} title={'Upload'} icon={<UploadFile/>} onClose={onClose}/>,
-    !user.token && <Entry path={localRoutes.login} title={'Login'} icon={<VerifiedUser/>} onClose={onClose}/>,
-  ].filter(Boolean)
+  const config: EntryConfig[] = [
+    {
+      path: localRoutes.imagePosts.add,
+      title: 'Upload',
+      icon: <UploadFile/>,
+    },
+    {
+      path: localRoutes.login,
+      title: 'Login',
+      icon: <VerifiedUser/>,
+      visible: !Boolean(user)
+    },
+    {
+      path: localRoutes.logout,
+      title: 'Logout',
+      icon: <VerifiedUser/>,
+      visible: Boolean(user)
+    },
+  ]
+
+  return config.filter(i => !i.hasOwnProperty('visible') || i.visible === true).map((entry, key) => (
+    <Entry key={key} onClose={onClose} {...entry}/>
+  ))
 }
