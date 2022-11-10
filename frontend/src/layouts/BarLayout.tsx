@@ -1,5 +1,6 @@
 import { FC, useContext, useState } from "react";
 import {
+  alpha,
   AppBar,
   Box,
   Button,
@@ -26,7 +27,13 @@ export const BarLayout: FC = () => {
 
   return (
     <Box>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        sx={{
+          backdropFilter: 'blur(5rem)',
+          backgroundColor: alpha(theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.background.paper, 0.9),
+        }}
+      >
         <Toolbar>
           <IconButton
             size="large"

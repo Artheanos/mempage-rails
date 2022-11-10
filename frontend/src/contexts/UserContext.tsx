@@ -12,16 +12,26 @@ interface ContextValues {
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (token: string) => {},
-  logout: () => {},
+  login: (_token: string) => {
+  },
+  logout: () => {
+  },
   theme: createTheme({}),
-  toggleMode: () => {},
+  toggleMode: () => {
+  },
 })
 
 export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<{ token?: string }>()
   const [themeMode, setThemeMode] = useState<ThemeMode>(localStorage.getItem('theme') as ThemeMode || 'dark')
-  const theme = useMemo(() => (createTheme({ palette: { mode: themeMode }, ...commonTheme })), [themeMode])
+  const theme = useMemo(() => {
+    const { palette, ...other } = commonTheme
+
+    return createTheme({
+      palette: { ...palette, mode: themeMode },
+      ...other
+    });
+  }, [themeMode])
 
   const login = (token: string) => {
     localStorage.setItem('token', token)
@@ -42,11 +52,11 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
   )
 }
 
-const commonTheme: { typography: Partial<Theme['typography']> } = {
+const commonTheme: Partial<Omit<Theme, 'typography'>> & { typography: Partial<Theme['typography']> } = {
   typography: {
     fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
     button: {
       textTransform: 'none'
     }
-  },
+  }
 }
