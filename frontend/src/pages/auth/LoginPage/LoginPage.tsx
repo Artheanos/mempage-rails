@@ -18,7 +18,7 @@ export const LoginPage: FC = () => {
   const onSubmit = (arg: LoginInput) => {
     mutation.mutate(arg, {
       onSuccess: (data) => {
-        login(data.token)
+        login(data)
         navigate(localRoutes.imagePosts.root)
       }
     })

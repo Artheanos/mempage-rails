@@ -2,17 +2,21 @@ import React, { useMemo, useState } from "react";
 import { createTheme, Theme } from "@mui/material";
 
 type ThemeMode = 'dark' | 'light'
+interface UserStorage {
+  token: string
+  user_id: number
+}
 
 interface ContextValues {
-  login: (token: string) => void
+  login: (user: UserStorage) => void
   logout: () => void
   theme: Theme
   toggleMode: () => void
-  user?: { token?: string }
+  user?: UserStorage
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_token: string) => {
+  login: (_user) => {
   },
   logout: () => {
   },
@@ -22,7 +26,7 @@ export const UserContext = React.createContext<ContextValues>({
 })
 
 export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<{ token?: string }>()
+  const [user, setUser] = useState<UserStorage | undefined>(JSON.parse(localStorage.getItem('user') || '{}'))
   const [themeMode, setThemeMode] = useState<ThemeMode>(localStorage.getItem('theme') as ThemeMode || 'dark')
   const theme = useMemo(() => {
     const { palette, ...other } = commonTheme
@@ -33,17 +37,21 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
     });
   }, [themeMode])
 
-  const login = (token: string) => {
-    localStorage.setItem('token', token)
-    setUser({ token })
+  const login = (user: UserStorage) => {
+    localStorage.setItem('user', JSON.stringify(user))
+    setUser(user)
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     setUser(undefined)
   }
 
-  const toggleMode = () => setThemeMode(prev => prev === 'light' ? 'dark' : 'light')
+  const toggleMode = () => {
+    const newMode = themeMode === 'light' ? 'dark' : 'light'
+    localStorage.setItem('theme', newMode)
+    setThemeMode(newMode)
+  }
 
   return (
     <UserContext.Provider value={{ login, logout, user, theme, toggleMode }}>

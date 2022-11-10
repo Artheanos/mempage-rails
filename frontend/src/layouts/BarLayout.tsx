@@ -17,13 +17,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { localRoutes } from "../api/routesBuilder";
-import { StarHalf, UploadFile, VerifiedUser, WbSunny } from "@mui/icons-material";
+import { Person, StarHalf, UploadFile, VerifiedUser, WbSunny } from "@mui/icons-material";
 import { UserContext } from "../contexts/UserContext";
 
 export const BarLayout: FC = () => {
   const [open, setOpen] = useState(false)
   const onClose = () => setOpen(false)
   const { theme, toggleMode } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
     <Box>
@@ -46,11 +47,18 @@ export const BarLayout: FC = () => {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" component="div">
-            <Link className="disable-blue" to={localRoutes.root}>Mempage Rails</Link>
+            <Link className="disable-blue" to={localRoutes.root} style={{ fontWeight: 'bold' }}>Mempage Rails</Link>
           </Typography>
-          <Button sx={{ ml: 'auto', color: theme.palette.common.white }} onClick={toggleMode}>
-            {theme.palette.mode === 'dark' ? <WbSunny/> : <StarHalf/>}
-          </Button>
+          <Box sx={{ ml: 'auto' }}>
+            <Link to={localRoutes.profile} style={{display: user ? '' : 'none'}}>
+              <Button sx={{ color: theme.palette.common.white }}>
+                <Person/>
+              </Button>
+            </Link>
+            <Button sx={{ color: theme.palette.common.white }} onClick={toggleMode}>
+              {theme.palette.mode === 'dark' ? <WbSunny/> : <StarHalf/>}
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -111,18 +119,19 @@ const useConfig = (onClose: () => void) => {
       path: localRoutes.imagePosts.add,
       title: 'Upload',
       icon: <UploadFile/>,
-    },
-    {
-      path: localRoutes.login,
-      title: 'Login',
-      icon: <VerifiedUser/>,
-      visible: !Boolean(user)
+      visible: Boolean(user)
     },
     {
       path: localRoutes.logout,
       title: 'Logout',
       icon: <VerifiedUser/>,
       visible: Boolean(user)
+    },
+    {
+      path: localRoutes.login,
+      title: 'Login',
+      icon: <VerifiedUser/>,
+      visible: !Boolean(user)
     },
   ]
 

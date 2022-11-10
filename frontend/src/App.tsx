@@ -1,15 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useContext } from "react";
 
-import './App.css'
 import { AddPostPage } from "./pages/posts/AddPostPage/AddPostPage";
 import { BarLayout } from "./layouts/BarLayout";
-import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
-import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
-import { localRoutes } from "./api/routesBuilder";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useContext } from "react";
-import { UserContext } from "./contexts/UserContext";
+import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
 import { LogoutPage } from "./pages/auth/LogoutPage";
+import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
+import { ProfilePage } from "./pages/auth/ProfilePage/ProfilePage";
+import { UserContext } from "./contexts/UserContext";
+import { localRoutes } from "./api/routesBuilder";
+
+import './App.css'
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: localRoutes.imagePosts.add,
         element: <AddPostPage/>
+      },
+      {
+        path: localRoutes.profile,
+        element: <ProfilePage/>
       }
     ]
   }
