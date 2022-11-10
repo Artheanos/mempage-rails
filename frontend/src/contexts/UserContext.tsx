@@ -26,7 +26,7 @@ export const UserContext = React.createContext<ContextValues>({
 })
 
 export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserStorage | undefined>(JSON.parse(localStorage.getItem('user') || '{}'))
+  const [user, setUser] = useState<UserStorage | undefined>(JSON.parse(localStorage.getItem('user') || 'null'))
   const [themeMode, setThemeMode] = useState<ThemeMode>(localStorage.getItem('theme') as ThemeMode || 'dark')
   const theme = useMemo(() => {
     const { palette, ...other } = commonTheme

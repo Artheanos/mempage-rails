@@ -14,7 +14,7 @@ export interface PostInput {
 }
 
 export const PostForm: FC<Props> = ({ onSubmit }) => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<PostInput>()
+  const { register, handleSubmit, watch, formState: { errors, isDirty } } = useForm<PostInput>()
 
   return (
     <div className="PostForm">
@@ -36,11 +36,10 @@ export const PostForm: FC<Props> = ({ onSubmit }) => {
             />
             {watch('file')?.length > 0 && <CheckCircle sx={{ ml: '0.5rem' }}/>}
           </StyledButton>
-          {errors.file?.type === 'required' &&
-              <Alert sx={{ mt: '1rem' }} severity="error" variant="outlined">Required file</Alert>}
+          {errors.file?.type && <Alert sx={{ mt: '1rem' }} severity="error" variant="outlined">{errors.file?.type}</Alert>}
         </div>
         <div>
-          <StyledButton type="submit">Submit</StyledButton>
+          <StyledButton type="submit" disabled={!isDirty}>Submit</StyledButton>
         </div>
       </Box>
     </div>

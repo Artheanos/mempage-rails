@@ -15,7 +15,7 @@ export const PostsPage = () => {
   return (
     <Box sx={{
       paddingTop: '2rem',
-      maxWidth: '40rem',
+      maxWidth: '36rem',
       display: 'flex',
       flexDirection: 'column',
       gap: '10rem'

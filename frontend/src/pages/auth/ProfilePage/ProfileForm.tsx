@@ -32,7 +32,7 @@ export const ProfileForm: FC<{ user: User }> = ({ user }) => {
         validate: (value) => value !== getValues('password') ? "Passwords don't match" : undefined
       })}/>
       {errors.confirmPassword?.type && <Alert severity="error">{errors.confirmPassword.message}</Alert>}
-      <StyledButton type="submit">
+      <StyledButton type="submit" disabled={!isDirty}>
         Change password
       </StyledButton>
     </Box>
