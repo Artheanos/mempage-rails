@@ -5,15 +5,11 @@ module Api
     class Update < ApplicationService
       def initialize(user, params)
         @user = user
-        @params = params
+        @params = validate_params(UpdateContract, params)
       end
 
       def execute
-        if @user.update(@params)
-          Success()
-        else
-          Failure(errors: @user.errors.errors, status: :bad_request)
-        end
+        @user.update(@params)
       end
     end
   end

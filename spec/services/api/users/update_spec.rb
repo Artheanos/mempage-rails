@@ -4,28 +4,30 @@ require 'rails_helper'
 
 RSpec.describe Api::Users::Update do
   let(:subject) { described_class.new(user, params) }
-  let(:user) { create :user, email: 'prev@email.com' }
-  let(:params) { { email: 'new@email.com' } }
-
-  before do
-    create :user, email: 'email@taken.com'
-  end
+  let(:user) { create :user, password: 'oldPassword' }
+  let(:params) { { password: 'newPassword' } }
+  let(:result) { subject.call }
 
   context 'when params are valid' do
-    it { expect { subject.call }.to change { user.reload.email }.from('prev@email.com').to('new@email.com') }
-
-    it 'returns' do
-      expect(subject.call.success).to eq(Dry::Monads::Unit)
+    it 'changes password' do
+      expect(user.authenticate('oldPassword')).to be_truthy
+      result
+      expect(user.reload.authenticate('newPassword')).to be_truthy
+      expect(user.authenticate('oldPassword')).to be false
+      expect(result.success).to eq(true)
     end
   end
 
   context 'when params are invalid' do
-    let(:params) { { email: 'email@taken.com' } }
+    context 'when invalid param is passed' do
+      let(:params) { { password: '12' } }
 
-    it { expect { subject.call }.not_to(change { user.reload.email }) }
-
-    it 'returns' do
-      pp subject.call.failure
+      it 'does not change password' do
+        expect(user.authenticate('oldPassword')).to be_truthy
+        result
+        expect(user.reload.authenticate('oldPassword')).to be_truthy
+        expect(result.failure).to eq({ errors: { password: ['must be longer than 3'] }, status: :bad_request })
+      end
     end
   end
 end

@@ -15,9 +15,7 @@ module Api
 
     def update
       authorize User
-      Users::Update.new(current_user, update_params).call do |result|
-        render_result result
-      end
+      Users::Update.new(current_user, user_params).call { |result| render_result result }
     end
 
     private
@@ -28,8 +26,8 @@ module Api
       render json: {}, status: :not_found
     end
 
-    def update_params
-      params.require(:user).permit(:password)
+    def user_params
+      params.require('user').to_unsafe_h
     end
   end
 end
