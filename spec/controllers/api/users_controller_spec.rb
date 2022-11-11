@@ -43,4 +43,20 @@ RSpec.describe Api::UsersController, type: :controller do
       end
     end
   end
+
+  describe '#update' do
+    let(:action) { put :update, params: { id: '0', user: { password: password } } }
+
+    before { http_login(user) }
+
+    context 'when params are valid' do
+      let(:password) { 'newPassword' }
+
+      it 'returns empty response' do
+        expect(json_response).to eq({})
+        expect(response).to have_http_status :ok
+        expect(user.reload.authenticate('newPassword')).to be_truthy
+      end
+    end
+  end
 end

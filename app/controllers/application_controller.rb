@@ -14,6 +14,8 @@ class ApplicationController < ActionController::API
 
   def render_result(result)
     result.success do |data|
+      next render json: {}, status: :ok if data == Dry::Monads::Unit
+
       status = data[:status] || :ok
       render json: data[:json], status: status
     end

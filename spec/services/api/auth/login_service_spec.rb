@@ -9,15 +9,9 @@ RSpec.describe Api::Auth::LoginService do
 
   context 'when params are valid' do
     it 'returns the proper params' do
-      subject.call do |result|
-        result.success do |data|
-          expect(data[:json]).to include(:token)
-          expect(data[:json]).to include(user_id: user.id)
-        end
-        result.failure do
-          raise 'I failed :('
-        end
-      end
+      allow_any_instance_of(Api::Auth::AssignToken).to receive(:call).and_return('token123')
+
+      expect(subject.call.success[:json]).to eq({ token: 'token123', user_id: user.id })
     end
   end
 
@@ -25,14 +19,7 @@ RSpec.describe Api::Auth::LoginService do
     let(:login_password) { "#{user.password}123" }
 
     it 'returns proper values' do
-      subject.call do |result|
-        result.success do
-          raise 'I succeeded :o'
-        end
-        result.failure do |data|
-          expect(data[:status]).to be :unauthorized
-        end
-      end
+      expect(subject.call.failure).to eq({ errors: {}, status: :unauthorized })
     end
   end
 end

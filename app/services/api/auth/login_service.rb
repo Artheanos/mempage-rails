@@ -3,15 +3,12 @@
 module Api
   module Auth
     class LoginService < ApplicationService
-      include Dry::Matcher.for(:call, with: Dry::Matcher::ResultMatcher)
-
       def initialize(email, password)
-        super()
         @email = email
         @password = password
       end
 
-      def call
+      def execute
         authentication = Api::Auth::AssignToken.new(@email, @password)
         token = authentication.call
         if token

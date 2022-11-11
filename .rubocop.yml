@@ -13,6 +13,9 @@ AllCops:
 Style/Documentation:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - config/routes.rb
