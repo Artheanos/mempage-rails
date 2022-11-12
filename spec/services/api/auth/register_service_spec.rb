@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::Auth::RegisterService do
-  let(:subject) { described_class.new(User.new(params)) }
+  let(:subject) { described_class.new(params) }
   let(:params) { { email: 'jan@jan.pl', password: 'Password123' } }
 
   context 'when params are valid' do

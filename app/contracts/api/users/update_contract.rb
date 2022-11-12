@@ -2,14 +2,12 @@
 
 module Api
   module Users
-    class UpdateContract < Dry::Validation::Contract
+    class UpdateContract < ApplicationContract
       params do
         optional(:password).filled(:string)
       end
 
-      rule(:password) do
-        key.failure('must be longer than 3') if key? && value.length <= 3
-      end
+      rule(:password).validate(:password_format)
     end
   end
 end

@@ -6,13 +6,7 @@ module Api
 
     def create
       authorize Comment
-      comment = Comment.new(create_params.merge(user: current_user))
-
-      if comment.save
-        render json: {}, status: :created
-      else
-        render json: {}, status: :unprocessable_entity
-      end
+      Comments::Create.new(current_user, create_params).call { |r| render_result r }
     end
 
     def destroy
@@ -24,13 +18,12 @@ module Api
     private
 
     def create_params
-      params.require(:comment).permit(:content, :image_post_id)
+      params.require(:comment).permit(:content, :image_post_id).to_h
     end
 
     def set_comment
-      @comment = Comment.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render json: {}, status: :not_found
+      @comment = Comment.find_by(id: params[:id])
+      render json: {}, status: :not_found if @comment.nil?
     end
   end
 end

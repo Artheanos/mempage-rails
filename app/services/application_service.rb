@@ -11,10 +11,10 @@ class ApplicationService
   end
 
   def call(&block)
-    block ? Dry::Matcher::ResultMatcher.call(sub_call, &block) : sub_call
+    block ? Dry::Matcher::ResultMatcher.call(prepare_response, &block) : prepare_response
   end
 
-  def sub_call
+  def prepare_response
     valid? ? wrap_in_result(execute) : Failure(errors: errors, status: :bad_request)
   end
 

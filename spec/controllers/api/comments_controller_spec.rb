@@ -35,6 +35,7 @@ RSpec.describe Api::CommentsController, type: :controller do
       it 'does not create a comment' do
         http_login(action_user)
         expect { action }.not_to change(Comment, :count)
+        expect(response).to have_http_status :bad_request
       end
     end
   end

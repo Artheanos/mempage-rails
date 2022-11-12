@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include Concerns::ResultRenderer
+  include ::ResultRenderer
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 

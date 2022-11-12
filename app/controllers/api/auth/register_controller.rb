@@ -4,16 +4,13 @@ module Api
   module Auth
     class RegisterController < ApplicationController
       def create
-        user = User.new(register_params)
-        RegisterService.new(user).call do |result|
-          render_result(result)
-        end
+        RegisterService.new(register_params).call { |result| render_result(result) }
       end
 
       private
 
       def register_params
-        params.permit(:email, :password)
+        params.permit(:email, :password).to_h
       end
     end
   end

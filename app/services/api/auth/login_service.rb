@@ -3,13 +3,12 @@
 module Api
   module Auth
     class LoginService < ApplicationService
-      def initialize(email, password)
-        @email = email
-        @password = password
+      def initialize(params)
+        @params = params
       end
 
       def execute
-        authentication = Api::Auth::AssignToken.new(@email, @password)
+        authentication = Api::Auth::AssignToken.new(@params[:email], @params[:password])
         token = authentication.call
         if token
           Success(json: { token: token, user_id: authentication.user.id })
