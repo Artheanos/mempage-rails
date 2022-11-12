@@ -5,7 +5,7 @@ module Api
     class Update < ApplicationService
       def initialize(user, params)
         @user = user
-        @params = validate_params(UpdateContract, params)
+        @params = params
       end
 
       def execute

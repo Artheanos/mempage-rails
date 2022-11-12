@@ -4,13 +4,13 @@ module Api
   module Auth
     class RegisterService < ApplicationService
       def initialize(params)
-        @params = validate_params(RegisterContract, params)
+        @params = params
       end
 
       def execute
         return Failure(errors: { base: 'User already exists' }) unless user.save
 
-        LoginService.new(user.email, user.password).call.success
+        LoginService.new(@params).call.success
       end
 
       private

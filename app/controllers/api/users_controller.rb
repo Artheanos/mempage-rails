@@ -15,7 +15,8 @@ module Api
 
     def update
       authorize User
-      Users::Update.new(current_user, user_params).call { |result| render_result result }
+      params = validate_params Users::UpdateContract
+      Users::Update.new(current_user, params).call { |result| render_result result }
     end
 
     private
@@ -23,10 +24,6 @@ module Api
     def set_user
       @user = User.find_by(id: params[:id])
       render json: {}, status: :not_found if @user.nil?
-    end
-
-    def user_params
-      params.require('user').to_unsafe_h
     end
   end
 end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::Auth::LoginService do
-  let(:subject) { described_class.new(user.email, login_password) }
+  let(:subject) { described_class.new({ email: user.email, password: login_password }) }
   let(:login_password) { user.password }
   let(:user) { create(:user) }
 

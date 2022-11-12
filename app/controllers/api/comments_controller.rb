@@ -6,7 +6,8 @@ module Api
 
     def create
       authorize Comment
-      Comments::Create.new(current_user, create_params).call { |r| render_result r }
+      params = validate_params Comments::CreateContract
+      Comments::Create.new(current_user, params).call { |r| render_result r }
     end
 
     def destroy
@@ -16,10 +17,6 @@ module Api
     end
 
     private
-
-    def create_params
-      params.require(:comment).permit(:content, :image_post_id).to_h
-    end
 
     def set_comment
       @comment = Comment.find_by(id: params[:id])

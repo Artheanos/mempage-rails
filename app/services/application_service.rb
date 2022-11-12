@@ -11,32 +11,17 @@ class ApplicationService
   end
 
   def call(&block)
-    block ? Dry::Matcher::ResultMatcher.call(prepare_response, &block) : prepare_response
-  end
-
-  def prepare_response
-    valid? ? wrap_in_result(execute) : Failure(errors: errors, status: :bad_request)
-  end
-
-  def wrap_in_result(value)
-    value.is_a?(Dry::Monads::Result) ? value : Success(value)
+    block ? Dry::Matcher::ResultMatcher.call(prepare_result, &block) : prepare_result
   end
 
   def execute
     raise NotImplementedError
   end
 
-  def valid?
-    errors.empty?
-  end
+  private
 
-  def validate_params(contract, params)
-    contract_result = contract.new.call(params)
-    errors.merge!(contract_result.errors.to_h)
-    contract_result.values.data
-  end
-
-  def errors
-    @errors ||= {}
+  def prepare_result
+    result = execute
+    result.is_a?(Dry::Monads::Result) ? result : Success(result)
   end
 end

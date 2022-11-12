@@ -5,7 +5,7 @@ module Api
     class Create < ApplicationService
       def initialize(user, params)
         @user = user
-        @params = validate_params(CreateContract, params)
+        @params = params
       end
 
       def execute

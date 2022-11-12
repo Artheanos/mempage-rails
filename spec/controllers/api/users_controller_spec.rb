@@ -18,10 +18,10 @@ RSpec.describe Api::UsersController, type: :controller do
         3.times { create(:image_post, user: user) }
         4.times { create(:comment, user: user) }
         expect(json_response).to include(
-          'email' => user.email,
-          'comment_count' => 4,
-          'post_count' => 3
-        )
+                                   'email' => user.email,
+                                   'comment_count' => 4,
+                                   'post_count' => 3
+                                 )
       end
 
       it 'returns ok status' do
@@ -45,7 +45,7 @@ RSpec.describe Api::UsersController, type: :controller do
   end
 
   describe '#update' do
-    let(:action) { put :update, params: { id: '0', user: { password: password } } }
+    let(:action) { put :update, params: { id: '0', password: password } }
 
     before { http_login(user) }
 
