@@ -25,7 +25,7 @@ class ApplicationController < ActionController::API
     render json: {}, status: :unauthorized
   end
 
-  def validation_error(errors)
-    render json: { errors: errors }, status: :bad_request
+  def validation_error(error)
+    render json: { errors: error.errors }, status: :bad_request
   end
 end

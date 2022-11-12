@@ -6,3 +6,7 @@ import { jsonFetch } from "../../utils/api";
 export const login = (data: LoginInput): Promise<LoginResponse> => {
   return jsonFetch(apiRoutes.auth.login, { method: 'POST', data })
 }
+
+export const updateProfile = (data: any): Promise<unknown> => {
+  return jsonFetch(apiRoutes.users.show(0), { method: 'PUT', data })
+}
