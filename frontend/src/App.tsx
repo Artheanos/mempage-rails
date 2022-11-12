@@ -1,15 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useContext } from "react";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { useContext } from 'react'
 
-import { AddPostPage } from "./pages/posts/AddPostPage/AddPostPage";
-import { BarLayout } from "./layouts/BarLayout";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { LoginPage } from "./pages/auth/LoginPage/LoginPage";
-import { LogoutPage } from "./pages/auth/LogoutPage";
-import { PostsPage } from "./pages/posts/PostsPage/PostsPage";
-import { ProfilePage } from "./pages/auth/ProfilePage/ProfilePage";
-import { UserContext } from "./contexts/UserContext";
-import { localRoutes } from "./api/routesBuilder";
+import { AddPostPage } from './pages/posts/AddPostPage'
+import { BarLayout } from './layouts/BarLayout'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { LoginPage } from './pages/auth/LoginPage'
+import { LogoutPage } from './pages/auth/LogoutPage'
+import { PostsPage } from './pages/posts/PostsPage'
+import { ProfilePage } from './pages/auth/ProfilePage'
+import { UserContext } from './contexts/UserContext'
+import { localRoutes } from './api/routesBuilder'
 
 import './App.css'
 
@@ -21,27 +21,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: localRoutes.imagePosts.root,
-        element: <PostsPage/>
+        element: <PostsPage/>,
       },
       {
         path: localRoutes.login,
-        element: <LoginPage/>
+        element: <LoginPage/>,
       },
       {
         path: localRoutes.logout,
-        element: <LogoutPage/>
+        element: <LogoutPage/>,
       },
       {
         path: localRoutes.imagePosts.add,
-        element: <AddPostPage/>
+        element: <AddPostPage/>,
       },
       {
         path: localRoutes.profile,
-        element: <ProfilePage/>
-      }
-    ]
-  }
-]);
+        element: <ProfilePage/>,
+      },
+    ],
+  },
+])
 
 export const App = () => (
   <ThemeProvider

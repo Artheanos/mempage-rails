@@ -1,18 +1,18 @@
-import { FC, useContext } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { FC, useContext } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
-import { LoginForm, LoginInput } from "./LoginForm";
-import { UserContext } from "../../../contexts/UserContext";
-import { localRoutes } from "../../../api/routesBuilder";
-import { login as loginMutation } from "../../../api/mutations/auth";
+import { LoginForm, LoginInput } from './LoginForm'
+import { UserContext } from '../../../contexts/UserContext'
+import { localRoutes } from '../../../api/routesBuilder'
+import { login as loginMutation } from '../../../api/mutations/auth'
 
 
 export const LoginPage: FC = () => {
   const { login } = useContext(UserContext)
   const navigate = useNavigate()
   const mutation = useMutation({
-    mutationFn: loginMutation
+    mutationFn: loginMutation,
   })
 
   const onSubmit = (arg: LoginInput) => {
@@ -20,7 +20,7 @@ export const LoginPage: FC = () => {
       onSuccess: (data) => {
         login(data)
         navigate(localRoutes.imagePosts.root)
-      }
+      },
     })
   }
 

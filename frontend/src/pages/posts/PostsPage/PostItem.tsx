@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC } from 'react'
 
-import { ImagePost } from "../../../interfaces/imagePosts";
-import { apiHost } from "../../../api/routesBuilder";
-import { Box } from "@mui/material";
+import { ImagePost } from '../../../interfaces/imagePosts'
+import { apiHost } from '../../../api/routesBuilder'
+import { Box } from '@mui/material'
 
 interface Props {
   post: ImagePost

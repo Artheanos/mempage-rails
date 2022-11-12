@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { createTheme, Theme } from "@mui/material";
+import React, { useMemo, useState } from 'react'
+import { createTheme, Theme } from '@mui/material'
 
 type ThemeMode = 'dark' | 'light'
 interface UserStorage {
@@ -33,8 +33,8 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
 
     return createTheme({
       palette: { ...palette, mode: themeMode },
-      ...other
-    });
+      ...other,
+    })
   }, [themeMode])
 
   const login = (user: UserStorage) => {
@@ -64,7 +64,7 @@ const commonTheme: Partial<Omit<Theme, 'typography'>> & { typography: Partial<Th
   typography: {
     fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
     button: {
-      textTransform: 'none'
-    }
-  }
+      textTransform: 'none',
+    },
+  },
 }

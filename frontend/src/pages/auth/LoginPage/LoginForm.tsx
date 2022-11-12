@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { Button, ButtonProps, styled } from "@mui/material";
-import { StyledButton } from "../../../components/forms/StyledButton";
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { Button, ButtonProps, styled } from '@mui/material'
+import { StyledButton } from '../../../components/forms/StyledButton'
 
 interface Props {
   onSubmit: (input: LoginInput) => void
@@ -14,7 +14,7 @@ export interface LoginInput {
   password: string
 }
 
-export const LoginForm: FC<Props> = ({onSubmit, isLoading, error}) => {
+export const LoginForm: FC<Props> = ({ onSubmit, isLoading, error }) => {
   const { register, handleSubmit, formState: { isDirty }, reset } = useForm<LoginInput>()
 
   return (
