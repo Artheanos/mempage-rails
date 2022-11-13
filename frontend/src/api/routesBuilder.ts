@@ -4,6 +4,7 @@ export const apiRoot = `${apiHost}/api`
 export const apiRoutes = {
   auth: {
     login: '/auth/login',
+    register: '/auth/register',
   },
   users: {
     show: (id: any) => `/users/${id}`
@@ -21,6 +22,7 @@ export const localRoutes = {
     root: '/',
   },
   login: '/login',
+  register: '/register',
   logout: '/logout',
   profile: '/profile'
 }

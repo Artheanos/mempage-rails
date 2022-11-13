@@ -6,6 +6,7 @@ import { CheckCircle } from '@mui/icons-material'
 
 interface Props {
   onSubmit: (form: PostInput) => void
+  isLoading: boolean
 }
 
 export interface PostInput {
@@ -13,7 +14,7 @@ export interface PostInput {
   file: FileList
 }
 
-export const PostForm: FC<Props> = ({ onSubmit }) => {
+export const PostForm: FC<Props> = ({ isLoading, onSubmit }) => {
   const { register, handleSubmit, watch, formState: { errors, isDirty } } = useForm<PostInput>()
 
   return (
@@ -39,7 +40,7 @@ export const PostForm: FC<Props> = ({ onSubmit }) => {
           {errors.file?.type && <Alert sx={{ mt: '1rem' }} severity="error" variant="outlined">{errors.file?.type}</Alert>}
         </div>
         <div>
-          <StyledButton type="submit" disabled={!isDirty}>Submit</StyledButton>
+          <StyledButton type="submit" isLoading={isLoading} disabled={!isDirty}>Submit</StyledButton>
         </div>
       </Box>
     </div>

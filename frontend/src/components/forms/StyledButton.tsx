@@ -1,7 +1,22 @@
-import { Button, ButtonProps } from '@mui/material'
-import { FC } from 'react'
+import { Button, ButtonProps, CircularProgress, useTheme } from '@mui/material'
+import { createRef, CSSProperties, FC } from 'react'
 
-export const StyledButton: FC<ButtonProps> = ({ children, sx, variant = 'contained', ...props }) => {
+interface Props extends ButtonProps {
+  isLoading?: boolean
+}
+
+export const StyledButton: FC<Props> = ({
+  isLoading,
+  children,
+  sx,
+  variant = 'contained',
+  disabled,
+  ...props
+}) => {
+  const buttonRef = createRef<HTMLButtonElement>()
+
+  const childrenSx: CSSProperties = isLoading ? { visibility: 'hidden' } : {}
+
   return (
     <Button
       sx={{
@@ -9,12 +24,15 @@ export const StyledButton: FC<ButtonProps> = ({ children, sx, variant = 'contain
         fontSize: '1rem',
         fontWeight: 'bold',
         padding: '0.5rem 1.2rem',
-        ...sx,
+        ...sx
       }}
       variant={variant}
+      disabled={disabled || isLoading}
       {...props}
+      ref={buttonRef}
     >
-      {children}
+      {isLoading && <CircularProgress size={25} sx={{ position: 'absolute' }}/>}
+      <div style={childrenSx}>{children}</div>
     </Button>
   )
 }

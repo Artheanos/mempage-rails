@@ -10,6 +10,10 @@ module Api
 
       rule(:email).validate(:email_format)
       rule(:password).validate(:password_format)
+
+      rule(:email) do
+        key.failure('User already exists') if User.where(email: value).exists?
+      end
     end
   end
 end

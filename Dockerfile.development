@@ -1,0 +1,11 @@
+FROM ruby:3.0.2
+ENV INSTALL_PATH /opt/app
+RUN mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+COPY mempage-rails/ .
+RUN gem install rails bundler
+RUN bundle
+
+FROM node:18.12-alpine
+WORKDIR $INSTALL_PATH/frontend
+RUN npm install

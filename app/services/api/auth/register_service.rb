@@ -8,9 +8,9 @@ module Api
       end
 
       def execute
-        return Failure(errors: { base: 'User already exists' }) unless user.save
+        return Failure(errors: { email: 'User already exists' }) unless user.save
 
-        LoginService.new(@params).call.success
+        LoginService.new(@params).call
       end
 
       private

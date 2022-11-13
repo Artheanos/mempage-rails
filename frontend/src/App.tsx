@@ -12,6 +12,7 @@ import { UserContext } from './contexts/UserContext'
 import { localRoutes } from './api/routesBuilder'
 
 import './App.css'
+import { RegisterPage } from "./pages/auth/RegisterPage/RegisterPage";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: localRoutes.login,
         element: <LoginPage/>,
+      },
+      {
+        path: localRoutes.register,
+        element: <RegisterPage/>,
       },
       {
         path: localRoutes.logout,
