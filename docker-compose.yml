@@ -1,0 +1,10 @@
+version: "1.0"
+services:
+  web:
+    image: mempage/be
+    ports:
+      - 3000:3000
+
+networks:
+  default:
+    name: mempage-network

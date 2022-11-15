@@ -1,11 +1,11 @@
-FROM ruby:3.0.2
+FROM ruby:3.0.2-alpine
+RUN apk --update add build-base tzdata sqlite-dev && rm -rf /var/cache/apk
 ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
-COPY mempage-rails/ .
+COPY ./ ./
 RUN gem install rails bundler
 RUN bundle
-
-FROM node:18.12-alpine
-WORKDIR $INSTALL_PATH/frontend
-RUN npm install
+RUN rails db:migrate
+RUN rails db:seed
+CMD rails s -b 0.0.0.0 -p 3000
