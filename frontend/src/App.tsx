@@ -12,9 +12,9 @@ import { UserContext } from './contexts/UserContext'
 import { localRoutes } from './api/routesBuilder'
 
 import './App.css'
-import { RegisterPage } from "./pages/auth/RegisterPage/RegisterPage";
-import { PostPage } from "./pages/posts/PostPage/PostPage";
-import { UserPage } from "./pages/users/UserPage/UserPage";
+import { RegisterPage } from './pages/auth/RegisterPage/RegisterPage'
+import { PostPage } from './pages/posts/PostPage/PostPage'
+import { UserPage } from './pages/users/UserPage/UserPage'
 
 
 const router = createBrowserRouter([
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: localRoutes.imagePosts.show(),
-        element: <PostPage/>
+        element: <PostPage/>,
       },
       {
         path: localRoutes.login,
@@ -52,8 +52,8 @@ const router = createBrowserRouter([
       },
       {
         path: localRoutes.users.show(),
-        element: <UserPage/>
-      }
+        element: <UserPage/>,
+      },
     ],
   },
 ])

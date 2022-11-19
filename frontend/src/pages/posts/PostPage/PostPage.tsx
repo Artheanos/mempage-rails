@@ -1,11 +1,11 @@
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress } from '@mui/material'
 import { FC } from 'react'
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
-import { CommentsContainer } from "./CommentsContainer";
-import { getImagePost } from "../../../api/queries/imagePosts";
-import { PostItem } from "../PostsPage/PostItem";
+import { CommentsContainer } from './CommentsContainer'
+import { getImagePost } from '../../../api/queries/imagePosts'
+import { PostItem } from '../PostsPage/PostItem'
 
 export const PostPage: FC = () => {
   const { id } = useParams()

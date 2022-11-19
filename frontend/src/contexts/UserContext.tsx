@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { createTheme, Theme } from '@mui/material'
 
-import { User } from "../interfaces/auth";
+import { User } from '../interfaces/auth'
 
 type ThemeMode = 'dark' | 'light'
 

@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyledButton } from '../../../components/forms/StyledButton'
-import { Link } from "react-router-dom";
-import { localRoutes } from "../../../api/routesBuilder";
-import { merge, serverToFormErrors } from "../../../utils/api";
-import { Box, Grid } from "@mui/material";
-import { StyledInput } from "../../../components/forms/StyledInput";
+import { Link } from 'react-router-dom'
+import { localRoutes } from '../../../api/routesBuilder'
+import { merge, serverToFormErrors } from '../../../utils/api'
+import { Box, Grid } from '@mui/material'
+import { StyledInput } from '../../../components/forms/StyledInput'
 
 interface Props {
   onSubmit: (input: LoginInput) => void
@@ -63,6 +63,6 @@ export const LoginForm: FC<Props> = ({ onSubmit, isLoading, error, action }) => 
 
 const messages = {
   login: 'Login',
-  register: 'Register'
+  register: 'Register',
 }
 

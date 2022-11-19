@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { Navigate } from 'react-router-dom'
 
 import { localRoutes } from '../../../api/routesBuilder'
-import { LoginForm, LoginInput } from "../LoginPage/LoginForm";
+import { LoginForm, LoginInput } from '../LoginPage/LoginForm'
 import { register } from '../../../api/mutations/auth'
 import { UserContext } from '../../../contexts/UserContext'
 

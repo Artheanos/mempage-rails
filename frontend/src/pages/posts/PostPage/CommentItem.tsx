@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { Comment } from "../../../interfaces/comments";
-import { Card, Typography } from "@mui/material";
-import { formatDate } from "../../../utils/dates";
+import { Comment } from '../../../interfaces/comments'
+import { Card, Typography } from '@mui/material'
+import { formatDate } from '../../../utils/dates'
 
 interface Props {
   comment: Comment

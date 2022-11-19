@@ -6,5 +6,5 @@ export const formatDate = (date: string | Date): string => {
 const dateSettings: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'short',
-  day: 'numeric'
+  day: 'numeric',
 }

@@ -14,7 +14,7 @@ export const ProfilePage: FC = () => {
   const { mutateAsync, isLoading: isMutating } = useMutation({ mutationFn: updateProfile })
   const [resetCounter, setResetCounter] = useState(0)
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async(data: any) => {
     await mutateAsync(data)
     setResetCounter(prev => prev + 1)
     alert('Changed')

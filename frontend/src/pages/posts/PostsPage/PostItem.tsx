@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { ImagePost } from '../../../interfaces/imagePosts'
 import { apiHost, localRoutes } from '../../../api/routesBuilder'
 import { Card, CardContent, CardMedia } from '@mui/material'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 interface Props {
   post: ImagePost

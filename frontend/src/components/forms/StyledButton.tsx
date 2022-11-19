@@ -24,7 +24,7 @@ export const StyledButton: FC<Props> = ({
         fontSize: '1rem',
         fontWeight: 'bold',
         padding: '0.5rem 1.2rem',
-        ...sx
+        ...sx,
       }}
       variant={variant}
       disabled={disabled || isLoading}

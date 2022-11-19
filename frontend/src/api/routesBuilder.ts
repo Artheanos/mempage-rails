@@ -7,19 +7,19 @@ export const apiRoutes = {
     register: '/auth/register',
   },
   users: {
-    show: (id: any) => `/users/${id}`
+    show: (id: any) => `/users/${id}`,
   },
   imagePosts: {
     root: '/image_posts',
-    show: (id: string) => `/image_posts/${id}`
-  }
+    show: (id: string) => `/image_posts/${id}`,
+  },
 }
 
 export const localRoutes = {
   imagePosts: {
     add: '/upload',
     root: '/',
-    show: (id = ':id') => `/posts/${id}`
+    show: (id = ':id') => `/posts/${id}`,
   },
   login: '/login',
   logout: '/logout',
@@ -27,6 +27,6 @@ export const localRoutes = {
   register: '/register',
   root: '/',
   users: {
-    show: (id:number|string=':id') => `/users/${id}`
+    show: (id:number|string=':id') => `/users/${id}`,
   },
 }

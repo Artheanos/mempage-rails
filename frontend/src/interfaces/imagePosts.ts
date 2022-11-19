@@ -1,5 +1,5 @@
-import { User } from "./auth";
-import { Comment } from "./comments";
+import { User } from './auth'
+import { Comment } from './comments'
 
 export interface ImagePost {
   id: string
