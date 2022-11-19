@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { createTheme, Theme } from '@mui/material'
 
 import { User } from '../interfaces/auth'
+import { ThemeOptions } from '@mui/material/styles/createTheme'
 
 type ThemeMode = 'dark' | 'light'
 
@@ -18,10 +19,8 @@ interface ContextValues {
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_data) => {
-  },
-  logout: () => {
-  },
+  login: (_data) => {},
+  logout: () => {},
   theme: createTheme({}),
   toggleMode: () => {
   },
@@ -31,13 +30,11 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
   const [user, setUser] = useState<UserStorage | undefined>(JSON.parse(localStorage.getItem('user') || 'null'))
   const [themeMode, setThemeMode] = useState<ThemeMode>(localStorage.getItem('theme') as ThemeMode || 'dark')
   const theme = useMemo(() => {
-    const { palette, ...other } = commonTheme
-
-    return createTheme({
-      palette: { ...palette, mode: themeMode },
-      ...other,
-    })
-  }, [themeMode])
+    const theme = themeMode === 'dark' ? darkTheme : lightTheme
+    return createTheme({ ...theme, ...commonTheme })
+  },
+  [themeMode],
+  )
 
   const login = (user: UserStorage) => {
     localStorage.setItem('user', JSON.stringify(user))
@@ -62,11 +59,27 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
   )
 }
 
-const commonTheme: Partial<Omit<Theme, 'typography'>> & { typography: Partial<Theme['typography']> } = {
+const commonTheme: ThemeOptions = {
   typography: {
     fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
     button: {
       textTransform: 'none',
+    },
+  },
+}
+
+const darkTheme: ThemeOptions = {
+  palette: {
+    mode: 'dark',
+  },
+  ...commonTheme,
+}
+
+const lightTheme: ThemeOptions = {
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#fafafa',
     },
   },
 }

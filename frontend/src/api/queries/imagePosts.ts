@@ -9,3 +9,7 @@ export const getImagePosts = (): Promise<ImagePost[]> => {
 export const getImagePost = (id: string): Promise<ImagePost> => {
   return jsonFetch(apiRoutes.imagePosts.show(id))
 }
+
+export const deleteImagePost = (id: string): Promise<void> => {
+  return jsonFetch(apiRoutes.imagePosts.show(id), { method: 'DELETE' })
+}

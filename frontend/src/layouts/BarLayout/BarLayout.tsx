@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import { FC, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -13,7 +13,7 @@ export const BarLayout: FC = () => {
     <Box>
       <TopBar setOpen={setOpenSideBar}/>
       <Sidebar onClose={closeSideBar} open={openSideBar}/>
-      <Box sx={containerStyle}>
+      <Box sx={containerStyle} bgcolor={useTheme().palette.background.default}>
         <Outlet/>
       </Box>
     </Box>
