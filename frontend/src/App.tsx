@@ -13,6 +13,7 @@ import { localRoutes } from './api/routesBuilder'
 
 import './App.css'
 import { RegisterPage } from "./pages/auth/RegisterPage/RegisterPage";
+import { PostPage } from "./pages/posts/PostPage/PostPage";
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: localRoutes.imagePosts.root,
         element: <PostsPage/>,
+      },
+      {
+        path: localRoutes.imagePosts.show(),
+        element: <PostPage/>
       },
       {
         path: localRoutes.login,

@@ -36,10 +36,6 @@ module Api
       render json: {}, status: :ok
     end
 
-    def avatar
-      render json: 'avatar'
-    end
-
     private
 
     def create_params

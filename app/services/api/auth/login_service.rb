@@ -11,7 +11,7 @@ module Api
         authentication = Api::Auth::AssignToken.new(@params[:email], @params[:password])
         token = authentication.call
         if token
-          Success(json: { token: token, user_id: authentication.user.id })
+          Success(json: { token: token, user: authentication.user })
         else
           Failure(errors: {}, status: :unauthorized)
         end

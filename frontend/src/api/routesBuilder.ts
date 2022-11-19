@@ -16,13 +16,17 @@ export const apiRoutes = {
 }
 
 export const localRoutes = {
-  root: '/',
   imagePosts: {
     add: '/upload',
     root: '/',
+    show: (id = ':id') => `/posts/${id}`
   },
   login: '/login',
-  register: '/register',
   logout: '/logout',
-  profile: '/profile'
+  profile: '/profile',
+  register: '/register',
+  root: '/',
+  users: {
+    show: (id:number|string=':id') => `/users/${id}`
+  },
 }

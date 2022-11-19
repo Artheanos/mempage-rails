@@ -11,7 +11,7 @@ RSpec.describe Api::Auth::LoginService do
     it 'returns the proper params' do
       allow_any_instance_of(Api::Auth::AssignToken).to receive(:call).and_return('token123')
 
-      expect(subject.call.success[:json]).to eq({ token: 'token123', user_id: user.id })
+      expect(subject.call.success[:json]).to eq({ token: 'token123', user: user })
     end
   end
 

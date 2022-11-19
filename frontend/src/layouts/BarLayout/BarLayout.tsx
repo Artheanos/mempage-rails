@@ -25,5 +25,5 @@ const containerStyle = {
   justifyContent: 'center',
   margin: 'auto',
   maxWidth: '50rem',
-  paddingTop: '5rem',
+  paddingY: '5rem',
 }
