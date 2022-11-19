@@ -8,5 +8,5 @@ export interface User {
 
 export interface LoginResponse {
   token: string
-  user_id: number
+  user: User
 }

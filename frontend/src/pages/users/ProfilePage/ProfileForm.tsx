@@ -3,7 +3,7 @@ import * as React from 'react'
 import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { LoginInput } from '../LoginPage/LoginForm'
+import { LoginInput } from '../../auth/LoginPage/LoginForm'
 import { StyledButton } from '../../../components/forms/StyledButton'
 import { User } from '../../../interfaces/auth'
 

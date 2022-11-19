@@ -18,7 +18,7 @@ export const LoginPage: FC = () => {
   const onSubmit = (form: LoginInput) => {
     mutation.mutate(form, {
       onSuccess: (data) => {
-        login(data)
+        login({ ...data.user, token: data.token })
         navigate(localRoutes.imagePosts.root)
       },
     })
@@ -26,7 +26,7 @@ export const LoginPage: FC = () => {
 
   return (
     <div className="LoginPage">
-      <h2 style={{marginBottom: '3rem'}}>Login</h2>
+      <h2 style={{ marginBottom: '3rem' }}>Login</h2>
       <LoginForm onSubmit={onSubmit} isLoading={mutation.isLoading} error={mutation.error} action='login'/>
     </div>
   )

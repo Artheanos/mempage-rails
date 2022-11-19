@@ -7,13 +7,14 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { LoginPage } from './pages/auth/LoginPage'
 import { LogoutPage } from './pages/auth/LogoutPage'
 import { PostsPage } from './pages/posts/PostsPage'
-import { ProfilePage } from './pages/auth/ProfilePage'
+import { ProfilePage } from './pages/users/ProfilePage'
 import { UserContext } from './contexts/UserContext'
 import { localRoutes } from './api/routesBuilder'
 
 import './App.css'
 import { RegisterPage } from "./pages/auth/RegisterPage/RegisterPage";
 import { PostPage } from "./pages/posts/PostPage/PostPage";
+import { UserPage } from "./pages/users/UserPage/UserPage";
 
 
 const router = createBrowserRouter([
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
         path: localRoutes.profile,
         element: <ProfilePage/>,
       },
+      {
+        path: localRoutes.users.show(),
+        element: <UserPage/>
+      }
     ],
   },
 ])

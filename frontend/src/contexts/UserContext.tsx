@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from 'react'
 import { createTheme, Theme } from '@mui/material'
 
+import { User } from "../interfaces/auth";
+
 type ThemeMode = 'dark' | 'light'
-interface UserStorage {
+
+interface UserStorage extends User {
   token: string
-  user_id: number
 }
 
 interface ContextValues {
@@ -16,7 +18,7 @@ interface ContextValues {
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_user) => {
+  login: (_data) => {
   },
   logout: () => {
   },

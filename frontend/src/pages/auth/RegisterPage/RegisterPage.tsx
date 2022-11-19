@@ -2,10 +2,10 @@ import { FC, useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { Navigate } from 'react-router-dom'
 
-import { UserContext } from '../../../contexts/UserContext'
 import { localRoutes } from '../../../api/routesBuilder'
-import { register } from '../../../api/mutations/auth'
 import { LoginForm, LoginInput } from "../LoginPage/LoginForm";
+import { register } from '../../../api/mutations/auth'
+import { UserContext } from '../../../contexts/UserContext'
 
 
 export const RegisterPage: FC = () => {
@@ -17,7 +17,7 @@ export const RegisterPage: FC = () => {
   const onSubmit = (form: LoginInput) => {
     mutation.mutate(form, {
       onSuccess: (data) => {
-        login(data)
+        login({ ...data.user, token: data.token })
       },
     })
   }

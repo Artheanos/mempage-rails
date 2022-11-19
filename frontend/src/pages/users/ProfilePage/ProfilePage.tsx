@@ -2,19 +2,19 @@ import { FC, useContext, useState } from 'react'
 import { Box, CircularProgress } from '@mui/material'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { ProfileCabinet } from './ProfileCabinet'
-import { ProfileForm } from './ProfileForm'
-import { UserContext } from '../../../contexts/UserContext'
 import { getUser } from '../../../api/queries/users'
+import { ProfileForm } from './ProfileForm'
 import { updateProfile } from '../../../api/mutations/auth'
+import { UserContext } from '../../../contexts/UserContext'
+import { UserInfo } from '../../../components/users/UserInfo'
 
 export const ProfilePage: FC = () => {
   const { user } = useContext(UserContext)
-  const { isLoading: isLoadingUser, data } = useQuery(['user'], { queryFn: () => getUser(user!.user_id) })
+  const { isLoading: isLoadingUser, data } = useQuery(['user'], { queryFn: () => getUser(user!.id) })
   const { mutateAsync, isLoading: isMutating } = useMutation({ mutationFn: updateProfile })
   const [resetCounter, setResetCounter] = useState(0)
 
-  const onSubmit = async(data: any) => {
+  const onSubmit = async (data: any) => {
     await mutateAsync(data)
     setResetCounter(prev => prev + 1)
     alert('Changed')
@@ -24,7 +24,7 @@ export const ProfilePage: FC = () => {
 
   return (
     <Box sx={{ display: 'flex', gap: '6rem' }}>
-      <ProfileCabinet user={data!}/>
+      <UserInfo user={data!}/>
       <ProfileForm user={data!} onSubmit={onSubmit} resetCounter={resetCounter} isLoading={isMutating}/>
     </Box>
   )
