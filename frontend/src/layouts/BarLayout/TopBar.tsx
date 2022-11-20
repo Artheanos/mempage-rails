@@ -18,7 +18,6 @@ export const TopBar: FC<Props> = ({ setOpen }) => {
 
   return (
     <AppBar
-      position="fixed"
       sx={{
         backdropFilter: 'blur(3rem)',
         backgroundColor: alpha(defaultColor, 0.9),

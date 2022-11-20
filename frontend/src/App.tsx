@@ -1,20 +1,20 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { useContext } from 'react'
 
 import { AddPostPage } from './pages/posts/AddPostPage'
 import { BarLayout } from './layouts/BarLayout'
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { localRoutes } from './api/routesBuilder'
 import { LoginPage } from './pages/auth/LoginPage'
 import { LogoutPage } from './pages/auth/LogoutPage'
+import { PostPage } from './pages/posts/PostPage/PostPage'
 import { PostsPage } from './pages/posts/PostsPage'
 import { ProfilePage } from './pages/users/ProfilePage'
+import { RegisterPage } from './pages/auth/RegisterPage/RegisterPage'
 import { UserContext } from './contexts/UserContext'
-import { localRoutes } from './api/routesBuilder'
+import { UserPage } from './pages/users/UserPage/UserPage'
 
 import './App.css'
-import { RegisterPage } from './pages/auth/RegisterPage/RegisterPage'
-import { PostPage } from './pages/posts/PostPage/PostPage'
-import { UserPage } from './pages/users/UserPage/UserPage'
 
 
 const router = createBrowserRouter([

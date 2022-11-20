@@ -2,8 +2,8 @@ import { ImagePost } from '../../interfaces/imagePosts'
 import { apiRoutes } from '../routesBuilder'
 import { jsonFetch } from '../../utils/api'
 
-export const getImagePosts = (): Promise<ImagePost[]> => {
-  return jsonFetch(apiRoutes.imagePosts.root)
+export const getImagePosts = (page = 1): Promise<ImagePost[]> => {
+  return jsonFetch(apiRoutes.imagePosts.root, { params: { page } })
 }
 
 export const getImagePost = (id: string): Promise<ImagePost> => {
