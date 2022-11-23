@@ -9,7 +9,7 @@ RSpec.describe Api::Auth::LoginService do
 
   context 'when params are valid' do
     it 'returns the proper params' do
-      allow_any_instance_of(Api::Auth::AssignToken).to receive(:call).and_return('token123')
+      allow(Api::Auth::JsonWebToken).to receive(:encode).and_return('token123')
 
       expect(subject.call.success[:json]).to eq({ token: 'token123', user: user })
     end

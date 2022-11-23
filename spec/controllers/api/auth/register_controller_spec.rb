@@ -13,15 +13,12 @@ RSpec.describe Api::Auth::RegisterController, type: :controller do
     context 'when params are valid' do
       before { action }
 
-      it 'returns user_id' do
-        user_id = json_response['user_id']
-        expect(user_id).to eq User.first.id
-      end
-
-      it 'returns valid token' do
+      it 'returns valid data' do
         token = json_response['token']
-        credentials = Api::Auth::JsonWebToken.decode(token)
-        expect(credentials[:user_id]).to eq User.first.id
+        expect(Api::Auth::JsonWebToken.decode(token)[:user_id]).to eq User.first.id
+        expect(json_response['user']).to include({
+                                                   'email' => 'email@email.com'
+                                                 })
       end
 
       it 'creates the new user' do

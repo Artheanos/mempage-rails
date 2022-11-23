@@ -8,13 +8,17 @@ module Api
       end
 
       def execute
-        authentication = Api::Auth::AssignToken.new(@params[:email], @params[:password])
-        token = authentication.call
-        if token
-          Success(json: { token: token, user: authentication.user })
+        if user
+          Success(json: { token: user.generate_jwt, user: user })
         else
           Failure(errors: {}, status: :unauthorized)
         end
+      end
+
+      private
+
+      def user
+        @user ||= User.find_by_credentials(@params[:email], @params[:password])
       end
     end
   end

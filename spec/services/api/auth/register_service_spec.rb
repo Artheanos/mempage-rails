@@ -23,7 +23,7 @@ RSpec.describe Api::Auth::RegisterService do
     it 'returns a proper error' do
       subject.call do |result|
         result.failure do |data|
-          expect(data).to eq(errors: { base: 'User already exists' })
+          expect(data).to eq(errors: { email: 'User already exists' })
         end
         result.success do |_data|
           raise 'err'
