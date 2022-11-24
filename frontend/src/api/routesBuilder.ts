@@ -7,6 +7,9 @@ export const apiRoutes = {
     register: '/auth/register',
     tokens: '/auth/token',
   },
+  comments: {
+    root: '/comments',
+  },
   users: {
     show: (id: any) => `/users/${id}`,
   },

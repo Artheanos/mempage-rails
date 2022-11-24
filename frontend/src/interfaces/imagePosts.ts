@@ -2,7 +2,7 @@ import { User } from './auth'
 import { Comment } from './comments'
 
 export interface ImagePost {
-  id: string
+  id: number
   header: string
   image: string
   comment_count: number
