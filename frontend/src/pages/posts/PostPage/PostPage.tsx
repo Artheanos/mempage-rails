@@ -9,7 +9,8 @@ import { PostItem } from '../PostsPage/PostItem'
 import { localRoutes } from '../../../api/routesBuilder'
 import { UserContext } from '../../../contexts/UserContext'
 import { ControlPanel } from './ControlPanel'
-import { createComment } from '../../../api/queries/comments'
+import { createComment, deleteComment } from '../../../api/queries/comments'
+import { PostContext } from './PostContext'
 
 export const PostPage: FC = () => {
   const navigate = useNavigate()
@@ -28,6 +29,11 @@ export const PostPage: FC = () => {
     },
   })
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => refetch(),
+  })
+
   const createCommentMutation = useMutation({
     mutationFn: createComment,
     onSuccess: () => refetch(),
@@ -39,16 +45,20 @@ export const PostPage: FC = () => {
 
   return (
     <Box sx={{ width: '100%', maxWidth: '36rem' }}>
-      {isOwner && <ControlPanel onDelete={() => deletePost()}/>}
-      <PostItem post={imagePost!}/>
-      <CommentsContainer
-        comments={imagePost?.comments || []}
-        onSubmit={({ content }) => createCommentMutation.mutate({
+      <PostContext.Provider value={{
+        imagePost: imagePost!,
+        deletePost,
+        deleteComment: deleteCommentMutation.mutate,
+        createComment: ({ content }) => createCommentMutation.mutate({
           content,
-          image_post_id: imagePost!.id
-        })}
-        isLoading={createCommentMutation.isLoading}
-      />
+          image_post_id: imagePost!.id,
+        }),
+        isCreatingComment: createCommentMutation.isLoading,
+      }}>
+        {isOwner && <ControlPanel/>}
+        <PostItem post={imagePost!}/>
+        <CommentsContainer/>
+      </PostContext.Provider>
     </Box>
   )
 }

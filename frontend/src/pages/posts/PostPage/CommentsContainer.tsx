@@ -1,22 +1,18 @@
-import { FC } from 'react'
-import { Box, TextField } from '@mui/material'
+import { FC, useContext } from 'react'
+import { Box } from '@mui/material'
 
-import { Comment, CommentFormData } from '../../../interfaces/comments'
+import { CommentFormData } from '../../../interfaces/comments'
 import { CommentItem } from './CommentItem'
 import { CommentForm } from './CommentForm'
-import { StyledButton } from '../../../components/forms/StyledButton'
+import { PostContext } from './PostContext'
 
-interface Props {
-  comments: Comment[]
-  onSubmit: (form: CommentFormData) => void
-  isLoading: boolean
-}
+export const CommentsContainer: FC = () => {
+  const { imagePost: { comments } } = useContext(PostContext)
 
-export const CommentsContainer: FC<Props> = ({ comments, onSubmit, isLoading }) => {
   return (
     <Box display='flex' flexDirection='column' gap='1rem'>
       <h2>Comments</h2>
-      <CommentForm onSubmit={onSubmit} isLoading={isLoading}/>
+      <CommentForm />
       {comments.map(comment => <CommentItem key={comment.id} comment={comment}/>)}
     </Box>
   )

@@ -1,7 +1,7 @@
 import { User } from './auth'
 
 export interface Comment {
-  id: string
+  id: number
   content: string
   created_at: string
   updated_at: string

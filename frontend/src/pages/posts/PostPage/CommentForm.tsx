@@ -1,16 +1,13 @@
 import { Box } from '@mui/material'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { StyledButton } from '../../../components/forms/StyledButton'
 import { StyledInput } from '../../../components/forms/StyledInput'
+import { PostContext } from './PostContext'
 
-interface Props {
-  isLoading: boolean
-  onSubmit: (form: { content: string }) => void
-}
-
-export const CommentForm: FC<Props> = ({ onSubmit, isLoading }) => {
+export const CommentForm: FC = () => {
+  const { createComment, isCreatingComment } = useContext(PostContext)
   const {
     register,
     handleSubmit,
@@ -18,14 +15,14 @@ export const CommentForm: FC<Props> = ({ onSubmit, isLoading }) => {
   } = useForm<{ content: string }>({ defaultValues: { content: '' } })
 
   return (
-    <Box component="form" sx={containerStyle} onSubmit={handleSubmit(onSubmit)}>
+    <Box component="form" sx={containerStyle} onSubmit={handleSubmit(createComment)}>
       <StyledInput
         error={errors.content}
         label="New comment"
         multiline
         {...register('content', { required: true })}
       />
-      <StyledButton isLoading={isLoading} disabled={!isDirty} type="submit">
+      <StyledButton isLoading={isCreatingComment} disabled={!isDirty} type="submit">
         Submit
       </StyledButton>
     </Box>

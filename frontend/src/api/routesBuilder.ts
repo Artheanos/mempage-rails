@@ -8,6 +8,7 @@ export const apiRoutes = {
     tokens: '/auth/token',
   },
   comments: {
+    show: (id: number) => `/comments/${id}`,
     root: '/comments',
   },
   users: {
@@ -23,7 +24,7 @@ export const localRoutes = {
   imagePosts: {
     add: '/upload',
     root: '/',
-    show: (id = ':id') => `/posts/${id}`,
+    show: (id: number | string = ':id') => `/posts/${id}`,
   },
   login: '/login',
   logout: '/logout',
@@ -31,6 +32,6 @@ export const localRoutes = {
   register: '/register',
   root: '/',
   users: {
-    show: (id:number|string=':id') => `/users/${id}`,
+    show: (id: number | string = ':id') => `/users/${id}`,
   },
 }

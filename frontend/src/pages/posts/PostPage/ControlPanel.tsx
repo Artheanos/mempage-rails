@@ -1,14 +1,13 @@
 import { Button } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
+import { PostContext } from './PostContext'
 
-interface Props {
-  onDelete: () => void
-}
+export const ControlPanel: FC = () => {
+  const { deletePost } = useContext(PostContext)
 
-export const ControlPanel: FC<Props> = ({ onDelete }) => {
   return (
-    <Button onClick={() => onDelete()}>
+    <Button onClick={() => deletePost()}>
       <Delete color='error'/>
     </Button>
   )
