@@ -3,10 +3,10 @@ import { createTheme, Theme } from '@mui/material'
 
 import { User } from '../interfaces/auth'
 import { ThemeOptions } from '@mui/material/styles/createTheme'
-import { useLocalStorage } from "../utils/storage";
-import { useMutation } from "@tanstack/react-query";
-import { refreshToken } from "../api/mutations/auth";
-import { Minutes } from "../utils/time";
+import { useLocalStorage } from '../utils/storage'
+import { useMutation } from '@tanstack/react-query'
+import { refreshToken } from '../api/mutations/auth'
+import { Minutes } from '../utils/time'
 
 type ThemeMode = 'dark' | 'light'
 
@@ -23,14 +23,11 @@ interface ContextValues {
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_data) => {
-  },
-  logout: () => {
-  },
+  login: (_data) => {},
+  logout: () => {},
   theme: createTheme({}),
-  toggleMode: () => {
-  },
-  user: null
+  toggleMode: () => {},
+  user: null,
 })
 
 export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
@@ -40,14 +37,14 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
   const { mutate: refreshTokenMutate } = useMutation({
     mutationFn: refreshToken,
     onSuccess: ({ user, token }) => login({ ...user, token }),
-    onError: () => logout()
+    onError: () => logout(),
   })
 
   const theme = useMemo(() => {
-      const theme = themeMode === 'dark' ? darkTheme : lightTheme
-      return createTheme({ ...theme, ...commonTheme })
-    },
-    [themeMode],
+    const theme = themeMode === 'dark' ? darkTheme : lightTheme
+    return createTheme({ ...theme, ...commonTheme })
+  },
+  [themeMode],
   )
 
   const login = (user: UserStorage): void => {

@@ -12,7 +12,7 @@ export const CommentsContainer: FC<Props> = ({ comments }) => {
   return (
     <Box display='flex' flexDirection='column' gap='1rem'>
       <h2>Comments</h2>
-      {comments.map(comment => <CommentItem comment={comment}/>)}
+      {comments.map(comment => <CommentItem key={comment.id} comment={comment}/>)}
     </Box>
   )
 }

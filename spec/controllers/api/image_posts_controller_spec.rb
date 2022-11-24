@@ -67,10 +67,15 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
   describe '#show' do
     let(:action) { get :show, params: { id: image_post_id } }
+    before do
+      create :comment, image_post: image_post, content: '1', created_at: 1.day.ago
+      create :comment, image_post: image_post, content: '2', created_at: 3.days.ago
+      create :comment, image_post: image_post, content: '3', created_at: 2.days.ago
+    end
 
     context 'when params are valid' do
       it 'returns the image_post' do
-        expect(json_response).to include('comments' => [])
+        expect(json_response['comments'].map { |comment| comment['content'] }).to eq %w[1 3 2]
       end
     end
 
