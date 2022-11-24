@@ -7,7 +7,7 @@
     "dev": "vite --port=4000",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint src/**/*.[tj]s[x]"
+    "lint": "eslint --ext .tsx,.ts src/"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

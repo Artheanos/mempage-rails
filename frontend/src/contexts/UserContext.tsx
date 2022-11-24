@@ -1,8 +1,12 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { createTheme, Theme } from '@mui/material'
 
 import { User } from '../interfaces/auth'
 import { ThemeOptions } from '@mui/material/styles/createTheme'
+import { useLocalStorage } from "../utils/storage";
+import { useMutation } from "@tanstack/react-query";
+import { refreshToken } from "../api/mutations/auth";
+import { Minutes } from "../utils/time";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -15,42 +19,54 @@ interface ContextValues {
   logout: () => void
   theme: Theme
   toggleMode: () => void
-  user?: UserStorage
+  user: UserStorage | null
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_data) => {},
-  logout: () => {},
+  login: (_data) => {
+  },
+  logout: () => {
+  },
   theme: createTheme({}),
   toggleMode: () => {
   },
+  user: null
 })
 
 export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserStorage | undefined>(JSON.parse(localStorage.getItem('user') || 'null'))
-  const [themeMode, setThemeMode] = useState<ThemeMode>(localStorage.getItem('theme') as ThemeMode || 'dark')
+  const [user, setUser] = useLocalStorage<UserStorage>('user')
+  const [themeMode, setThemeMode] = useLocalStorage<ThemeMode>('theme')
+
+  const { mutate: refreshTokenMutate } = useMutation({
+    mutationFn: refreshToken,
+    onSuccess: ({ user, token }) => login({ ...user, token }),
+    onError: () => logout()
+  })
+
   const theme = useMemo(() => {
-    const theme = themeMode === 'dark' ? darkTheme : lightTheme
-    return createTheme({ ...theme, ...commonTheme })
-  },
-  [themeMode],
+      const theme = themeMode === 'dark' ? darkTheme : lightTheme
+      return createTheme({ ...theme, ...commonTheme })
+    },
+    [themeMode],
   )
 
-  const login = (user: UserStorage) => {
-    localStorage.setItem('user', JSON.stringify(user))
+  const login = (user: UserStorage): void => {
     setUser(user)
+    setTimeout(() => {
+      if (user) refreshTokenMutate()
+    }, 4 * Minutes)
   }
 
-  const logout = () => {
-    localStorage.removeItem('user')
-    setUser(undefined)
-  }
+  const logout = (): void => setUser(null)
 
-  const toggleMode = () => {
+  const toggleMode = (): void => {
     const newMode = themeMode === 'light' ? 'dark' : 'light'
-    localStorage.setItem('theme', newMode)
     setThemeMode(newMode)
   }
+
+  useEffect(() => {
+    if (user) refreshTokenMutate()
+  }, [])
 
   return (
     <UserContext.Provider value={{ login, logout, user, theme, toggleMode }}>

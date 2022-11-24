@@ -14,3 +14,7 @@ export const register = (data: LoginInput): Promise<LoginResponse> => {
 export const updateProfile = (data: any): Promise<unknown> => {
   return jsonFetch(apiRoutes.users.show(0), { method: 'PUT', data })
 }
+
+export const refreshToken = (): Promise<LoginResponse> => {
+  return jsonFetch(apiRoutes.auth.tokens, { method: 'POST' })
+}

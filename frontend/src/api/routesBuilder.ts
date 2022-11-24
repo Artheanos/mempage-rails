@@ -5,6 +5,7 @@ export const apiRoutes = {
   auth: {
     login: '/auth/login',
     register: '/auth/register',
+    tokens: '/auth/token'
   },
   users: {
     show: (id: any) => `/users/${id}`,
