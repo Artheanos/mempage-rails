@@ -1,10 +1,10 @@
 import { Button } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import { FC, useContext } from 'react'
-import { PostContext } from './PostContext'
+import { PostPageContext } from './PostPageContext'
 
 export const ControlPanel: FC = () => {
-  const { deletePost } = useContext(PostContext)
+  const { deletePost } = useContext(PostPageContext)
 
   return (
     <Button onClick={() => deletePost()}>

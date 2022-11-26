@@ -3,15 +3,17 @@ import { FC, useContext } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { CommentsContainer } from './CommentsContainer'
-import { ControlPanel } from './ControlPanel'
 import { createComment, deleteComment } from '../../../api/queries/comments'
 import { deleteImagePost, getImagePost } from '../../../api/queries/imagePosts'
 import { localRoutes } from '../../../api/routesBuilder'
-import { PostContext } from './PostContext'
 import { PostItem } from '../../../components/posts/PostItem'
 import { UserContext } from '../../../contexts/UserContext'
 import { useScrollToTop } from '../../../utils/useScrollToTop'
+
+import { CommentsContainer } from './CommentsContainer'
+import { ControlPanel } from './ControlPanel'
+import { PostPageContext, PostPageContextValue } from './PostPageContext'
+
 
 export const PostPage: FC = () => {
   useScrollToTop()
@@ -45,22 +47,24 @@ export const PostPage: FC = () => {
 
   if (isLoading) return <LinearProgress/>
 
+  const contextValue: PostPageContextValue = {
+    imagePost: imagePost!,
+    deletePost,
+    deleteComment: deleteCommentMutation.mutate,
+    createComment: ({ content }) => createCommentMutation.mutateAsync({
+      content,
+      image_post_id: imagePost!.id,
+    }),
+    isCreatingComment: createCommentMutation.isLoading,
+  }
+
   return (
     <Box sx={{ width: '100%', maxWidth: '36rem' }}>
-      <PostContext.Provider value={{
-        imagePost: imagePost!,
-        deletePost,
-        deleteComment: deleteCommentMutation.mutate,
-        createComment: ({ content }) => createCommentMutation.mutateAsync({
-          content,
-          image_post_id: imagePost!.id,
-        }),
-        isCreatingComment: createCommentMutation.isLoading,
-      }}>
+      <PostPageContext.Provider value={contextValue}>
         {isOwner && <ControlPanel/>}
         <PostItem post={imagePost!}/>
         <CommentsContainer/>
-      </PostContext.Provider>
+      </PostPageContext.Provider>
     </Box>
   )
 }

@@ -1,13 +1,12 @@
-import { FC, useContext } from 'react'
 import { Box } from '@mui/material'
+import { FC, useContext } from 'react'
 
-import { CommentFormData } from '../../../interfaces/comments'
 import { CommentItem } from './CommentItem'
 import { CommentForm } from './CommentForm'
-import { PostContext } from './PostContext'
+import { PostPageContext } from '../PostPageContext'
 
 export const CommentsContainer: FC = () => {
-  const { imagePost: { comments } } = useContext(PostContext)
+  const { imagePost: { comments } } = useContext(PostPageContext)
 
   return (
     <Box display='flex' flexDirection='column' gap='1rem'>

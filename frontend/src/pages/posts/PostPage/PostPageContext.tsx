@@ -1,8 +1,9 @@
 import { createContext } from 'react'
-import { ImagePost } from '../../../interfaces/imagePosts'
-import { CommentFormData } from '../../../interfaces/comments'
 
-interface PostContextValue {
+import { CommentFormData } from '../../../interfaces/comments'
+import { ImagePost } from '../../../interfaces/imagePosts'
+
+export interface PostPageContextValue {
   createComment: (form: CommentFormData) => Promise<void>
   deleteComment: (id: number) => void
   deletePost: () => void
@@ -10,4 +11,4 @@ interface PostContextValue {
   isCreatingComment: boolean
 }
 
-export const PostContext = createContext<PostContextValue>({} as unknown as PostContextValue)
+export const PostPageContext = createContext<PostPageContextValue>({} as unknown as PostPageContextValue)

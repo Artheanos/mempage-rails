@@ -2,12 +2,12 @@ import { Box } from '@mui/material'
 import { FC, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { StyledButton } from '../../../components/forms/StyledButton'
-import { StyledInput } from '../../../components/forms/StyledInput'
-import { PostContext } from './PostContext'
+import { PostPageContext } from '../PostPageContext'
+import { StyledButton } from '../../../../components/forms/StyledButton'
+import { StyledInput } from '../../../../components/forms/StyledInput'
 
 export const CommentForm: FC = () => {
-  const { createComment, isCreatingComment } = useContext(PostContext)
+  const { createComment, isCreatingComment } = useContext(PostPageContext)
   const {
     register,
     handleSubmit,

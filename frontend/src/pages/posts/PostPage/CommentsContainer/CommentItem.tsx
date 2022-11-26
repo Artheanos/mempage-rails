@@ -1,19 +1,20 @@
-import { FC, useContext } from 'react'
-import { Comment } from '../../../interfaces/comments'
 import { Box, Button, Card, Typography } from '@mui/material'
-import { formatDate } from '../../../utils/dates'
-import { Link } from 'react-router-dom'
-import { localRoutes } from '../../../api/routesBuilder'
-import { UserContext } from '../../../contexts/UserContext'
 import { Delete } from '@mui/icons-material'
-import { PostContext } from './PostContext'
+import { FC, useContext } from 'react'
+import { Link } from 'react-router-dom'
+
+import { Comment } from '../../../../interfaces/comments'
+import { formatDate } from '../../../../utils/dates'
+import { localRoutes } from '../../../../api/routesBuilder'
+import { PostPageContext } from '../PostPageContext'
+import { UserContext } from '../../../../contexts/UserContext'
 
 interface Props {
   comment: Comment
 }
 
 export const CommentItem: FC<Props> = ({ comment }) => {
-  const { deleteComment } = useContext(PostContext)
+  const { deleteComment } = useContext(PostPageContext)
   const { user } = useContext(UserContext)
   const isOwner = user?.id === comment.user.id
 
