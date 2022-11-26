@@ -13,7 +13,7 @@ module Api
     def destroy
       authorize @comment
       @comment.destroy
-      render json: {}, status: :ok
+      render_success
     end
 
     private

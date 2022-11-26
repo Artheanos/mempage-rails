@@ -6,9 +6,9 @@ module ResultRenderer
     result.failure { |data| render_failure data }
   end
 
-  def render_success(success)
-    if success.is_a?(Hash) && success.key?(:json)
-      render json: success[:json], status: success[:status] || :ok
+  def render_success(success = nil)
+    if success.is_a?(Hash)
+      render json: success[:json] || {}, status: success[:status] || :ok
     else
       render json: {}, status: :ok
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_06_234911) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_25_233814) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -73,6 +73,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_234911) do
     t.index ["image_post_id"], name: "index_post_hashtags_on_image_post_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "image_post_id", null: false
+    t.integer "reaction", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_post_id"], name: "index_reactions_on_image_post_id"
+    t.index ["user_id", "image_post_id", "reaction"], name: "index_reactions_on_user_id_and_image_post_id_and_reaction", unique: true
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -88,4 +99,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_234911) do
   add_foreign_key "image_posts", "users"
   add_foreign_key "post_hashtags", "hashtags"
   add_foreign_key "post_hashtags", "image_posts"
+  add_foreign_key "reactions", "image_posts"
+  add_foreign_key "reactions", "users"
 end

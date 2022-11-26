@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :image_posts, only: %i[create index show destroy]
     resources :comments, only: %i[create destroy]
     resources :users, only: %i[show update]
+    post :reactions, to: 'reactions#upsert'
+    delete :reactions, to: 'reactions#destroy'
 
     namespace :auth do
       resources :login, only: %i[create]
