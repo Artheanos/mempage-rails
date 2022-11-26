@@ -19,7 +19,7 @@ export const CommentItem: FC<Props> = ({ comment }) => {
 
   return (
     <Card sx={{ padding: '1.2rem 2rem' }}>
-      <Typography fontSize="md" sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between', fontSize: 'md' }}>
         <div>
           {formatDate(comment.created_at)}
         </div>
@@ -28,7 +28,7 @@ export const CommentItem: FC<Props> = ({ comment }) => {
             {comment.user.email}
           </Link>
         </div>
-      </Typography>
+      </Box>
       <hr/>
       <Box>
         <Typography textAlign='left'>

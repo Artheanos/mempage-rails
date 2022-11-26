@@ -4,8 +4,8 @@ class ImagePost < ApplicationRecord
   belongs_to :user
 
   has_many :comments, dependent: :destroy
-  has_many :reactions
-  has_many :post_hashtags
+  has_many :reactions, dependent: :destroy
+  has_many :post_hashtags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
   has_one_attached :image
 

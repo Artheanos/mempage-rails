@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { getUser } from '../../../api/queries/users'
 import { ProfileForm } from './ProfileForm'
-import { updateProfile } from '../../../api/mutations/auth'
+import { updateProfile } from '../../../api/queries/auth'
 import { UserContext } from '../../../contexts/UserContext'
 import { UserInfo } from '../../../components/users/UserInfo'
 

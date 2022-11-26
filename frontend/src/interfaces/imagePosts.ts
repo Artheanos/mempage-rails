@@ -1,12 +1,16 @@
-import { User } from './auth'
 import { Comment } from './comments'
+import { ReactionValue } from './reactions'
+import { User } from './auth'
 
 export interface ImagePost {
-  id: number
-  header: string
-  image: string
   comment_count: number
-  created_at: string
-  user: User
   comments: Comment[]
+  created_at: string
+  current_user_reaction: ReactionValue
+  dislikes: number
+  header: string
+  id: number
+  image: string
+  likes: number
+  user: User
 }

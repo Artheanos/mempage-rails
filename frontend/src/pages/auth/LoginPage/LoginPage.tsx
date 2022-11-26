@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { LoginForm, LoginInput } from './LoginForm'
 import { UserContext } from '../../../contexts/UserContext'
 import { localRoutes } from '../../../api/routesBuilder'
-import { login as loginMutation } from '../../../api/mutations/auth'
+import { login as loginMutation } from '../../../api/queries/auth'
 
 
 export const LoginPage: FC = () => {

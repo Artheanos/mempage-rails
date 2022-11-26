@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { getImagePosts } from '../../../api/queries/imagePosts'
 import { ImagePost } from '../../../interfaces/imagePosts'
-import { PostItem } from './PostItem'
+import { PostItem } from '../../../components/posts/PostItem'
 
 
 export const PostsPage = () => {
@@ -49,9 +49,11 @@ export const PostsPage = () => {
 const useScrolledDown = (onScrolledDown: () => void, ...dependencies: unknown[]) => {
   useEffect(() => {
     document.body.onscroll = () => {
-      if (document.body.scrollHeight <= window.scrollY + window.innerHeight + 1) {
+      if (document.body.scrollHeight <= window.scrollY + window.innerHeight + 0.5) {
         onScrolledDown()
       }
     }
+
+    return (): void => { document.body.onscroll = null }
   }, dependencies || [])
 }

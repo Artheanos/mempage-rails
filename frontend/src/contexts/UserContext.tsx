@@ -5,7 +5,7 @@ import { User } from '../interfaces/auth'
 import { ThemeOptions } from '@mui/material/styles/createTheme'
 import { useLocalStorage } from '../utils/storage'
 import { useMutation } from '@tanstack/react-query'
-import { refreshToken } from '../api/mutations/auth'
+import { refreshToken } from '../api/queries/auth'
 import { Minutes } from '../utils/time'
 
 type ThemeMode = 'dark' | 'light'

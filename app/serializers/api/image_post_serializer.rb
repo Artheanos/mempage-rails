@@ -2,7 +2,7 @@
 
 module Api
   class ImagePostSerializer < ApplicationSerializer
-    attributes :id, :header, :image, :comment_count, :created_at, :current_user_reaction
+    attributes :id, :header, :image, :comment_count, :created_at, :current_user_reaction, :likes, :dislikes
     belongs_to :user
 
     include Rails.application.routes.url_helpers
@@ -12,11 +12,19 @@ module Api
     end
 
     def comment_count
-      object.comments.to_a.length
+      object.comments.count
     end
 
     def current_user_reaction
       object.reactions.find_by(user: current_user)&.reaction
+    end
+
+    def likes
+      object.reactions.where(reaction: :like).count
+    end
+
+    def dislikes
+      object.reactions.where(reaction: :dislike).count
     end
   end
 end

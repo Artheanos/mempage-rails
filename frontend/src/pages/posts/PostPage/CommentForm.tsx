@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { StyledButton } from '../../../components/forms/StyledButton'
@@ -11,8 +11,13 @@ export const CommentForm: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { isDirty, errors },
-  } = useForm<{ content: string }>({ defaultValues: { content: '' } })
+    formState: { isDirty, errors, isSubmitSuccessful },
+    reset,
+  } = useForm<{ content: string }>({ defaultValues })
+
+  useEffect(() => {
+    if (isSubmitSuccessful) reset(defaultValues)
+  }, [reset, isSubmitSuccessful])
 
   return (
     <Box component="form" sx={containerStyle} onSubmit={handleSubmit(createComment)}>
@@ -35,4 +40,8 @@ const containerStyle = {
   justifyContent: 'space-between',
   paddingX: '5rem',
   marginBottom: '2rem',
+}
+
+const defaultValues = {
+  content: '',
 }

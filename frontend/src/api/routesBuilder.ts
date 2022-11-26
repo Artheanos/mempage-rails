@@ -11,6 +11,9 @@ export const apiRoutes = {
     show: (id: number) => `/comments/${id}`,
     root: '/comments',
   },
+  reactions: {
+    root: '/reactions',
+  },
   users: {
     show: (id: any) => `/users/${id}`,
   },

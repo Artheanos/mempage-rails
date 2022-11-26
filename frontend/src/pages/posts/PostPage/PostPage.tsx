@@ -4,15 +4,17 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CommentsContainer } from './CommentsContainer'
-import { deleteImagePost, getImagePost } from '../../../api/queries/imagePosts'
-import { PostItem } from '../PostsPage/PostItem'
-import { localRoutes } from '../../../api/routesBuilder'
-import { UserContext } from '../../../contexts/UserContext'
 import { ControlPanel } from './ControlPanel'
 import { createComment, deleteComment } from '../../../api/queries/comments'
+import { deleteImagePost, getImagePost } from '../../../api/queries/imagePosts'
+import { localRoutes } from '../../../api/routesBuilder'
 import { PostContext } from './PostContext'
+import { PostItem } from '../../../components/posts/PostItem'
+import { UserContext } from '../../../contexts/UserContext'
+import { useScrollToTop } from '../../../utils/useScrollToTop'
 
 export const PostPage: FC = () => {
+  useScrollToTop()
   const navigate = useNavigate()
   const { id } = useParams()
   const { user } = useContext(UserContext)
@@ -49,7 +51,7 @@ export const PostPage: FC = () => {
         imagePost: imagePost!,
         deletePost,
         deleteComment: deleteCommentMutation.mutate,
-        createComment: ({ content }) => createCommentMutation.mutate({
+        createComment: ({ content }) => createCommentMutation.mutateAsync({
           content,
           image_post_id: imagePost!.id,
         }),

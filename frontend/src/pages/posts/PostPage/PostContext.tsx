@@ -3,7 +3,7 @@ import { ImagePost } from '../../../interfaces/imagePosts'
 import { CommentFormData } from '../../../interfaces/comments'
 
 interface PostContextValue {
-  createComment: (form: CommentFormData) => void
+  createComment: (form: CommentFormData) => Promise<void>
   deleteComment: (id: number) => void
   deletePost: () => void
   imagePost: ImagePost
