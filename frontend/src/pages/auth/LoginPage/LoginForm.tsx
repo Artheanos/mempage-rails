@@ -1,11 +1,13 @@
+import { Box, Grid } from '@mui/material'
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
-import { StyledButton } from '../../../components/forms/StyledButton'
 import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+
 import { localRoutes } from '../../../api/routesBuilder'
 import { merge, serverToFormErrors } from '../../../utils/api'
-import { Box, Grid } from '@mui/material'
+import { StyledButton } from '../../../components/forms/StyledButton'
 import { StyledInput } from '../../../components/forms/StyledInput'
+
 
 interface Props {
   onSubmit: (input: LoginInput) => void
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export interface LoginInput {
-  email: string
+  username: string
   password: string
 }
 
@@ -34,7 +36,7 @@ export const LoginForm: FC<Props> = ({ onSubmit, isLoading, error, action }) => 
               sx={{ width: '100%' }}
               label='Email'
               error={errors.email}
-              {...register('email')}
+              {...register('username')}
             />
           </Grid>
           <Grid item>
@@ -65,4 +67,3 @@ const messages = {
   login: 'Login',
   register: 'Register',
 }
-

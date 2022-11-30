@@ -2,9 +2,15 @@ import { apiRoot } from '../api/routesBuilder'
 import axios, { AxiosRequestConfig } from 'axios'
 
 export const jsonFetch = async(path: string, options?: AxiosRequestConfig): Promise<any> => {
+  const token = JSON.parse(localStorage.getItem('user') || '{}')?.token
+  const headers = options?.headers || {}
+  if (token) {
+    headers['Authorization'] = `Token ${token}`
+  }
   options = {
-    url: `${apiRoot}${path}`,
-    headers: { Authentication: JSON.parse(localStorage.getItem('user') || '{}')?.token },
+    url: `${apiRoot}${path}/`,
+    responseType: 'json',
+    headers,
     ...options,
   }
 

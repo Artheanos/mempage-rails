@@ -7,30 +7,35 @@ import { getImagePosts } from '../../../api/queries/imagePosts'
 import { ImagePost } from '../../../interfaces/imagePosts'
 import { PostItem } from '../../../components/posts/PostItem'
 
+const PAGE_SIZE = 2
 
 export const PostsPage = () => {
   const [searchParams] = useSearchParams()
   const [posts, setPosts] = useState<ImagePost[]>([])
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page') || 1))
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page') || 0))
+  const [lastPage, setLastPage] = useState(-1)
+
   const { isFetching, refetch } = useQuery({
     queryKey: ['image_posts'],
-    queryFn: () => getImagePosts(currentPage),
-    onSuccess: (data) => {
-      if (data.length > 0) {
+    queryFn: () => getImagePosts(currentPage + 1),
+    onSuccess: ({ results, count }) => {
+      setLastPage(Math.ceil(count / PAGE_SIZE))
+      if (results.length > 0) {
+        setPosts(prev => prev.concat(results))
         setCurrentPage(prev => prev + 1)
-        setPosts(prev => prev.concat(data))
       }
     },
   })
 
   useScrolledDown(() => {
-    if (!isFetching) refetch()
+    if (!isFetching && currentPage !== lastPage) refetch()
   }, [isFetching])
 
   return (
     <>
       <Box sx={{
         paddingTop: '2rem',
+        width: '100%',
         maxWidth: '36rem',
         display: 'flex',
         flexDirection: 'column',
@@ -38,9 +43,9 @@ export const PostsPage = () => {
       }}>
         {posts.map(post => <PostItem key={post.id} post={post}/>)}
       </Box>
-
+      {isFetching}
       <Collapse sx={{ position: 'fixed', width: '100%', bottom: '0rem' }} in={isFetching}>
-        <LinearProgress />
+        <LinearProgress/>
       </Collapse>
     </>
   )
@@ -54,6 +59,8 @@ const useScrolledDown = (onScrolledDown: () => void, ...dependencies: unknown[])
       }
     }
 
-    return (): void => { document.body.onscroll = null }
+    return (): void => {
+      document.body.onscroll = null
+    }
   }, dependencies || [])
 }

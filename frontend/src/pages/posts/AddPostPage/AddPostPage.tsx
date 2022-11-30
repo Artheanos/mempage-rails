@@ -12,8 +12,8 @@ export const AddPostPage: FC = () => {
 
   const onSubmit = async(form: PostInput) => {
     const data = new FormData()
-    data.append('image_post[header]', form.header)
-    data.append('image_post[image]', form.file.item(0)!)
+    data.append('header', form.header)
+    data.append('image_file', form.file.item(0)!)
     setIsLoading(true)
     await jsonFetch(apiRoutes.imagePosts.root, { data, method: 'POST' })
     setIsLoading(false)

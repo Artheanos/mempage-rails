@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const PostItem: FC<Props> = ({ post }) => {
-  const src = `${apiHost}/static/${post.image}`
+  const src = post.image
   const [currentReaction, setCurrentReaction] = useState<ReactionValue | null>(post.current_user_reaction)
 
   const upsertMutation = useMutation({

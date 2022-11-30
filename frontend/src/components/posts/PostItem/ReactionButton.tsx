@@ -12,13 +12,13 @@ interface Props {
 }
 
 export const ReactionButton: FC<Props> = ({ reaction, ButtonIcon }) => {
+  const { handleReaction, post, currentReaction } = useContext(PostItemContext)
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const otherUsersReactionCount = useMemo<number>(() => {
     let reactionCount = post[`${reaction}s` as 'likes' | 'dislikes']
     if (currentReaction === reaction) reactionCount--
     return reactionCount
   }, [])
-  const { handleReaction, post, currentReaction } = useContext(PostItemContext)
   const { user } = useContext(UserContext)
 
   return (

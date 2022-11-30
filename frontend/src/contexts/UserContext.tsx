@@ -23,10 +23,13 @@ interface ContextValues {
 }
 
 export const UserContext = React.createContext<ContextValues>({
-  login: (_data) => {},
-  logout: () => {},
+  login: (_data) => {
+  },
+  logout: () => {
+  },
   theme: createTheme({}),
-  toggleMode: () => {},
+  toggleMode: () => {
+  },
   user: null,
 })
 
@@ -37,7 +40,9 @@ export const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
   const { mutate: refreshTokenMutate } = useMutation({
     mutationFn: refreshToken,
     onSuccess: ({ user, token }) => login({ ...user, token }),
-    onError: () => logout(),
+    onError: ({ request: { status } }) => {
+      if (status === 401) logout()
+    },
   })
 
   const theme = useMemo(() => {
