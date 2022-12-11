@@ -19,8 +19,8 @@ export const TopBar: FC<Props> = ({ setOpen }) => {
   return (
     <AppBar
       sx={{
-        backdropFilter: 'blur(3rem)',
-        backgroundColor: alpha(defaultColor, 0.9),
+        backdropFilter: 'blur(2rem)',
+        backgroundColor: alpha(defaultColor, 0.79),
       }}
     >
       <Toolbar>

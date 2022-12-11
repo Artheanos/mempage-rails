@@ -1,4 +1,4 @@
-import { Box, Button, ClickAwayListener, Tooltip } from '@mui/material'
+import { Box, Button, ClickAwayListener, Tooltip, Typography } from '@mui/material'
 import { FC, useContext, useMemo, useState } from 'react'
 import { SvgIconComponent } from '@mui/icons-material'
 
@@ -41,7 +41,7 @@ export const ReactionButton: FC<Props> = ({ reaction, ButtonIcon }) => {
           </Button>
         </Tooltip>
       </ClickAwayListener>
-      <div>{otherUsersReactionCount + (currentReaction === reaction ? 1 : 0)}</div>
+      <Typography fontSize='0.95rem' color="text.secondary">{otherUsersReactionCount + (currentReaction === reaction ? 1 : 0)}</Typography>
     </Box>
   )
 }
