@@ -5,6 +5,8 @@ import { SvgIconComponent } from '@mui/icons-material'
 import { PostItemContext } from './PostItemContext'
 import { ReactionValue } from '../../../interfaces/reactions'
 import { UserContext } from '../../../contexts/UserContext'
+import { Link } from 'react-router-dom'
+import { localRoutes } from '../../../api/routesBuilder'
 
 interface Props {
   reaction: ReactionValue
@@ -29,7 +31,7 @@ export const ReactionButton: FC<Props> = ({ reaction, ButtonIcon }) => {
           disableTouchListener
           onClose={() => setTooltipOpen(false)}
           open={tooltipOpen}
-          title={'Log in to leave a reaction'}
+          title={<div><Link to={localRoutes.login}>Log in</Link> to leave a reaction</div>}
         >
           <Button
             onClick={() => {

@@ -25,7 +25,7 @@ export const ProfileForm: FC<Props> = ({ user, onSubmit, resetCounter, isLoading
     formState: { errors, isDirty },
     reset,
     getValues,
-  } = useForm<FormInput>({ defaultValues: { email: user.email, password: '', confirmPassword: '' } })
+  } = useForm<FormInput>({ defaultValues: { email: user.email, password: '', confirmPassword: '' } as any })
 
   useEffect(reset, [resetCounter])
 
