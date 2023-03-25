@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :hashtag do
-    name { 'MyString' }
+    sequence(:name) { |n| "hashtag#{n}" }
   end
 end

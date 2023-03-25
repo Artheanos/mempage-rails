@@ -3,7 +3,7 @@
 module Api
   class SingleImagePostSerializer < ImagePostSerializer
     has_many :comments do
-      object.comments.order(created_at: :desc)
+      object.comments.order(created_at: :desc).includes(:user)
     end
   end
 end

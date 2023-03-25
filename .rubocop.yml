@@ -20,3 +20,6 @@ Metrics/BlockLength:
   Exclude:
     - config/routes.rb
     - spec/**/*.rb
+
+Naming/VariableNumber:
+  Enabled: false
