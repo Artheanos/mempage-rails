@@ -17,7 +17,7 @@ interface Props {
 }
 
 export interface LoginInput {
-  username: string
+  email: string
   password: string
 }
 
@@ -36,7 +36,7 @@ export const LoginForm: FC<Props> = ({ onSubmit, isLoading, error, action }) => 
               sx={{ width: '100%' }}
               label='Email'
               error={errors.email}
-              {...register('username')}
+              {...register('email')}
             />
           </Grid>
           <Grid item>

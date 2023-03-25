@@ -26,7 +26,7 @@ module Api
       end
 
       def http_auth_header
-        headers['Authentication']&.split&.last
+        headers['Authorization']&.split&.last
       end
     end
   end

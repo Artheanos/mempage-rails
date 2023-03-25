@@ -9,18 +9,19 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   let(:create_params) do
     {
       header: 'hello world',
-      image: Rack::Test::UploadedFile.new(file_fixture('images/img_1.jpg'), 'image/png')
+      image_file: Rack::Test::UploadedFile.new(file_fixture('images/img_1.jpg'), 'image/png')
     }
   end
   let(:json_response) do
     action
     JSON.parse(response.body)
   end
+  let(:json_results) { json_response['results'] }
 
   describe '#create' do
     it 'creates image_post' do
       http_login(author)
-      post :create, params: { image_post: create_params }
+      post :create, params: create_params
       expect(ImagePost.first.as_json).to include('header' => 'hello world')
     end
   end
@@ -31,17 +32,21 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
     context 'when you dont pass any params' do
       it 'lists image_posts in reverse order' do
-        3.times { |i| create(:image_post, header: "header#{i}") }
+        3.times { |i| create(:image_post, header: "header#{i}", user: create(:user, email: "user@#{i}.com")) }
 
-        expect(json_response.first['header']).to eq 'header2'
-        expect(json_response.last['header']).to eq 'header0'
+        expect(json_response.keys).to eq %w[results count]
+
+        expect(json_results.first['header']).to eq 'header2'
+        expect(json_results.first['user']['email']).to eq 'user@2.com'
+
+        expect(json_results.last['header']).to eq 'header0'
       end
 
       it 'returns comment count' do
         create(:comment, image_post: image_post)
         create(:comment, image_post: image_post)
 
-        expect(json_response.first['comment_count']).to eq 2
+        expect(json_results.first['comment_count']).to eq 2
       end
     end
 
@@ -50,8 +55,8 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
       it 'returns proper posts' do
         10.times { |i| create(:image_post, header: "header#{i}") }
-        expect(json_response.last['header']).to eq 'header0'
-        expect(json_response.first['header']).to eq 'header4'
+        expect(json_results.last['header']).to eq 'header0'
+        expect(json_results.first['header']).to eq 'header4'
       end
     end
 
@@ -59,8 +64,8 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       let(:index_params) { { after: ImagePost.find_by(header: 'header6').id } }
       it 'returns posts after header6 post in correct order' do
         10.times { |i| create(:image_post, header: "header#{i}") }
-        expect(json_response.last['header']).to eq 'header7'
-        expect(json_response.first['header']).to eq 'header9'
+        expect(json_results.last['header']).to eq 'header7'
+        expect(json_results.first['header']).to eq 'header9'
       end
     end
   end

@@ -2,6 +2,7 @@
 
 module Api
   class ImagePostsController < ApplicationController
+    serialization_scope :serializer_scope
     before_action :set_image_post, only: %i[show destroy]
 
     def index
@@ -11,12 +12,19 @@ module Api
                  ImagePost.page(params[:page] || 1).includes(:user, :comments, image_attachment: :blob)
                end
 
-      render json: result.order(id: :desc)
+      render json: {
+        results: ActiveModel::Serializer::CollectionSerializer.new(
+          result.order(id: :desc),
+          serializer: ImagePostSerializer,
+          current_user: current_user
+        ),
+        count: ImagePost.count
+      }
     end
 
     def create
       authorize ImagePost
-      image_post = ImagePost.new(create_params.merge(user: current_user))
+      image_post = ImagePost.new(create_params)
 
       if image_post.save
         render json: {}, status: :created
@@ -39,7 +47,9 @@ module Api
     private
 
     def create_params
-      params.require(:image_post).permit(:header, :image)
+      result = params.permit(:header, :image_file)
+      result[:image] = result.delete(:image_file)
+      result.merge(user: current_user)
     end
 
     def set_image_post

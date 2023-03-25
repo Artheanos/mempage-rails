@@ -8,7 +8,7 @@ module Api
     include Rails.application.routes.url_helpers
 
     def image
-      rails_blob_path(object.image, only_path: true) if object.image.attached?
+      url_for(object.image) if object.image.attached?
     end
 
     def comment_count
@@ -16,7 +16,7 @@ module Api
     end
 
     def current_user_reaction
-      object.reactions.find_by(user: current_user)&.reaction
+      object.reactions.find_by(user: @instance_options[:current_user])&.reaction
     end
 
     def likes
@@ -25,6 +25,10 @@ module Api
 
     def dislikes
       object.reactions.where(reaction: :dislike).count
+    end
+
+    def user
+      { id: object.user.id, email: object.user.email }
     end
   end
 end

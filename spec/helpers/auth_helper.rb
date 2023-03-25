@@ -2,6 +2,6 @@
 
 module AuthHelper
   def http_login(user)
-    request.headers.merge!(Authentication: user.generate_jwt)
+    request.headers.merge!(Authorization: user.generate_jwt)
   end
 end
