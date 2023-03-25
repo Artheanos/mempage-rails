@@ -3,7 +3,7 @@
 module Api
   class ImagePostsController < ApplicationController
     serialization_scope :serializer_scope
-    before_action :set_image_post, only: %i[show destroy]
+    before_action :set_image_post, only: %i[show destroy update]
 
     def index
       result = if params[:after]
@@ -33,6 +33,16 @@ module Api
       end
     end
 
+    def update
+      authorize @image_post
+
+      if @image_post.update(update_params)
+        render json: {}, status: :ok
+      else
+        render json: {}, status: :unprocessable_entity
+      end
+    end
+
     def show
       render json: @image_post, serializer: Api::SingleImagePostSerializer
     end
@@ -50,6 +60,10 @@ module Api
       result = params.permit(:header, :image_file)
       result[:image] = result.delete(:image_file)
       result.merge(user: current_user)
+    end
+
+    def update_params
+      params.permit(:header)
     end
 
     def set_image_post

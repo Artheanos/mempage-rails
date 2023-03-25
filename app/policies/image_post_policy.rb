@@ -2,5 +2,6 @@
 
 class ImagePostPolicy < ApplicationPolicy
   alias create? logged_in?
+  alias update? owner?
   alias destroy? owner?
 end

@@ -6,12 +6,6 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   let(:author) { create(:user) }
   let(:image_post) { create(:image_post, user: author) }
   let(:image_post_id) { image_post.id }
-  let(:create_params) do
-    {
-      header: 'hello world',
-      image_file: Rack::Test::UploadedFile.new(file_fixture('images/img_1.jpg'), 'image/png')
-    }
-  end
   let(:json_response) do
     action
     JSON.parse(response.body)
@@ -19,10 +13,59 @@ RSpec.describe Api::ImagePostsController, type: :controller do
   let(:json_results) { json_response['results'] }
 
   describe '#create' do
+    let(:create_params) do
+      {
+        header: 'hello world',
+        image_file: Rack::Test::UploadedFile.new(file_fixture('images/img_1.jpg'), 'image/png')
+      }
+    end
+
     it 'creates image_post' do
       http_login(author)
       post :create, params: create_params
       expect(ImagePost.first.as_json).to include('header' => 'hello world')
+    end
+  end
+
+  describe '#update' do
+    let(:image_post_author) { author }
+    let!(:image_post) { create(:image_post, user: image_post_author, header: 'aaa') }
+
+    let(:new_header) { 'newHeader' }
+    let(:update_params) { { id: image_post.id, header: new_header } }
+
+    describe 'when client is the author' do
+      it 'updates image_post' do
+        http_login(author)
+        post :update, params: update_params
+
+        expect(response).to have_http_status :ok
+        expect(image_post.reload.header).to eq 'newHeader'
+      end
+    end
+
+    describe 'when the client is not the author' do
+      let(:image_post_author) { create(:user) }
+
+      it 'does not update image_post' do
+        http_login(author)
+        post :update, params: update_params
+
+        expect(response).to have_http_status :unauthorized
+        expect(image_post.reload.header).to eq 'aaa'
+      end
+    end
+
+    describe 'when the params are invalid' do
+      let(:new_header) { '' }
+
+      it 'does not update image_post' do
+        http_login(author)
+        post :update, params: update_params
+
+        expect(response).to have_http_status :unprocessable_entity
+        expect(image_post.reload.header).to eq 'aaa'
+      end
     end
   end
 

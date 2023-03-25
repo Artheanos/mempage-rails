@@ -14,3 +14,9 @@ export const getImagePost = (id: string): Promise<ImagePost> => {
 export const deleteImagePost = (id: string): Promise<void> => {
   return jsonFetch(apiRoutes.imagePosts.show(id), { method: 'DELETE' })
 }
+
+export const updateImagePost = (id: string, data: ImagePostUpdateVariables) => {
+  return jsonFetch(apiRoutes.imagePosts.show(id), { method: 'PUT', data })
+}
+
+export type ImagePostUpdateVariables = Pick<ImagePost, 'header'>
