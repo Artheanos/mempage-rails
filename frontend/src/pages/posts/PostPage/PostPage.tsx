@@ -77,7 +77,6 @@ export const PostPage: FC = () => {
     <Box sx={{ width: '100%', maxWidth: '36rem' }}>
       <PostPageContext.Provider value={contextValue}>
         {isOwner && <ControlPanel/>}
-        {useContext(PostPageContext).isEditing?.toString()}
         <PostItem post={imagePost!}/>
         <CommentsContainer/>
       </PostPageContext.Provider>
