@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia } from '@mui/material'
+import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material'
 import { FC, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ThumbDown, ThumbUp } from '@mui/icons-material'
@@ -44,33 +44,40 @@ export const PostItem: FC<Props> = ({ post }) => {
 
   return (
     <Card>
-      <CardContent sx={{ position: 'relative', padding: '1rem 0', width: '100%' }}>
-        <Box>
-          {isEditing ? <StyledInput
-            label="Title"
-            value={newHeader}
-            onKeyDown={e => {
-              if (e.code === 'Enter')
-                updatePost({ header: newHeader })
-            }}
-            onChange={e => {
-              setNewHeader(e.target.value)
-            }}
-          /> :
-            <Link className="disable-blue" to={localRoutes.imagePosts.show(post.id)}>
-              <h2>{post.header}</h2>
-            </Link>}
-          <Link className="disable-blue" to={localRoutes.users.show(post.user.id)}>
-            <p>{post.user.email}</p>
-          </Link>
-        </Box>
+      <CardContent>
+        <Grid container>
+          <Grid item xs={12} sm={4}>
+            <Box sx={{ display: 'flex' }}>
+              <PostItemContext.Provider value={{ handleReaction, post, currentReaction }}>
+                <ReactionButton reaction="like" ButtonIcon={ThumbUp}/>
+                <ReactionButton reaction="dislike" ButtonIcon={ThumbDown}/>
+              </PostItemContext.Provider>
+            </Box>
+          </Grid>
 
-        <Box sx={{ position: 'absolute', top: '1rem', left: '1rem', display: 'flex' }}>
-          <PostItemContext.Provider value={{ handleReaction, post, currentReaction }}>
-            <ReactionButton reaction="like" ButtonIcon={ThumbUp}/>
-            <ReactionButton reaction="dislike" ButtonIcon={ThumbDown}/>
-          </PostItemContext.Provider>
-        </Box>
+          <Grid item xs={12} sm={4}>
+            {isEditing ? <StyledInput
+                label="Title"
+                value={newHeader}
+                onKeyDown={e => {
+                  if (e.code === 'Enter')
+                    updatePost({ header: newHeader })
+                }}
+                onChange={e => {
+                  setNewHeader(e.target.value)
+                }}
+              /> :
+              <Link className="disable-blue" to={localRoutes.imagePosts.show(post.id)}>
+                <h2>{post.header}</h2>
+              </Link>}
+            <Link className="disable-blue" to={localRoutes.users.show(post.user.id)}>
+              <p>{post.user.email}</p>
+            </Link>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+        </Grid>
       </CardContent>
 
       <Link className="disable-blue" to={localRoutes.imagePosts.show(post.id)}>

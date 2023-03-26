@@ -20,7 +20,7 @@ RSpec.describe Api::UsersController, type: :controller do
         expect(json_response).to include(
           'email' => user.email,
           'comment_count' => 4,
-          'post_count' => 3
+          'post_count' => 3,
         )
       end
 

@@ -12,19 +12,19 @@ module Api
     end
 
     def comment_count
-      object.comments.count
+      @instance_options[:comment_counts][object.id] || 0
     end
 
     def current_user_reaction
-      object.reactions.find_by(user: @instance_options[:current_user])&.reaction
+      @instance_options[:client_reactions][object.id] || nil
     end
 
     def likes
-      object.reactions.where(reaction: :like).count
+      @instance_options[:like_counts][object.id] || 0
     end
 
     def dislikes
-      object.reactions.where(reaction: :dislike).count
+      @instance_options[:dislike_counts][object.id] || 0
     end
 
     def user

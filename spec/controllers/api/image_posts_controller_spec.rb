@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::ImagePostsController, type: :controller do
   let(:author) { create(:user) }
+  let(:client) { author }
   let(:image_post) { create(:image_post, user: author) }
   let(:image_post_id) { image_post.id }
   let(:json_response) do
@@ -11,6 +12,8 @@ RSpec.describe Api::ImagePostsController, type: :controller do
     JSON.parse(response.body)
   end
   let(:json_results) { json_response['results'] }
+
+  before { http_login(client) if client }
 
   describe '#create' do
     let(:create_params) do
@@ -21,7 +24,6 @@ RSpec.describe Api::ImagePostsController, type: :controller do
     end
 
     it 'creates image_post' do
-      http_login(author)
       post :create, params: create_params
       expect(ImagePost.first.as_json).to include('header' => 'hello world')
     end
@@ -36,7 +38,6 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
     describe 'when client is the author' do
       it 'updates image_post' do
-        http_login(author)
         post :update, params: update_params
 
         expect(response).to have_http_status :ok
@@ -45,10 +46,9 @@ RSpec.describe Api::ImagePostsController, type: :controller do
     end
 
     describe 'when the client is not the author' do
-      let(:image_post_author) { create(:user) }
+      let(:client) { create(:user) }
 
       it 'does not update image_post' do
-        http_login(author)
         post :update, params: update_params
 
         expect(response).to have_http_status :unauthorized
@@ -60,7 +60,6 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       let(:new_header) { '' }
 
       it 'does not update image_post' do
-        http_login(author)
         post :update, params: update_params
 
         expect(response).to have_http_status :unprocessable_entity
@@ -71,18 +70,44 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
   describe '#index' do
     let(:index_params) { {} }
-    let(:action) { get :index, params: index_params }
+    let(:action) do
+      get :index, params: index_params
+    end
 
     context 'when you dont pass any params' do
+      let(:client) { create(:user, email: 'user@2.com') }
+
+      def create_image_post(header, user)
+        post = create(:image_post, header: header, user: user)
+        3.times { create(:comment, image_post: post) }
+        3.times { create(:reaction, image_post: post, reaction: :like) }
+        2.times { create(:reaction, image_post: post, reaction: :dislike) }
+      end
+
       it 'lists image_posts in reverse order' do
-        3.times { |i| create(:image_post, header: "header#{i}", user: create(:user, email: "user@#{i}.com")) }
+        create_image_post 'header0', create(:user, email: 'user@0.com')
+        create_image_post 'header0', client
+        create(:image_post, header: 'header2', user: client, reactions: [{ user: client, reaction: :like }])
 
         expect(json_response.keys).to eq %w[results count]
 
-        expect(json_results.first['header']).to eq 'header2'
-        expect(json_results.first['user']['email']).to eq 'user@2.com'
+        expect(json_results.first).to include({
+                                                'comment_count' => 0,
+                                                'current_user_reaction' => 'like',
+                                                'dislikes' => 0,
+                                                'header' => 'header2',
+                                                'likes' => 1,
+                                                'user' => { 'email' => 'user@2.com', 'id' => 1 }
+                                              })
 
-        expect(json_results.last['header']).to eq 'header0'
+        expect(json_results.last).to include({
+                                               'comment_count' => 3,
+                                               'current_user_reaction' => nil,
+                                               'dislikes' => 2,
+                                               'header' => 'header0',
+                                               'likes' => 3,
+                                               'user' => { 'email' => 'user@0.com', 'id' => 2 }
+                                             })
       end
 
       it 'returns comment count' do
