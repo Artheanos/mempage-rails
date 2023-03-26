@@ -12,3 +12,12 @@ amazon:
   secret_access_key: ""
   bucket: ""
   region: "" # e.g. 'us-east-1'
+
+minio:
+  service: S3
+  access_key_id: "admin"
+  secret_access_key: "adminadmin"
+  bucket: "mempage-dev-bucket"
+  region: "eu-central-1"
+  endpoint: "http://localhost:9000"
+  force_path_style: true
