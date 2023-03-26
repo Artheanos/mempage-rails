@@ -7,6 +7,7 @@ import { BarLayout } from './layouts/BarLayout'
 import { localRoutes } from './api/routesBuilder'
 import { LoginPage } from './pages/auth/LoginPage'
 import { LogoutPage } from './pages/auth/LogoutPage'
+import { NotificationContextProvider } from '@src/components/Notification'
 import { PostPage } from './pages/posts/PostPage/PostPage'
 import { PostsPage } from './pages/posts/PostsPage'
 import { ProfilePage } from './pages/users/ProfilePage'
@@ -59,9 +60,10 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => (
-  <ThemeProvider
-    theme={useContext(UserContext).theme}>
-    <CssBaseline/>
-    <RouterProvider router={router}/>
+  <ThemeProvider theme={useContext(UserContext).theme}>
+    <NotificationContextProvider>
+      <CssBaseline/>
+      <RouterProvider router={router}/>
+    </NotificationContextProvider>
   </ThemeProvider>
 )

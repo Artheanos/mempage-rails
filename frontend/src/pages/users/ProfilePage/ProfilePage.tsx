@@ -7,17 +7,19 @@ import { ProfileForm } from './ProfileForm'
 import { updateProfile } from '@src/api/queries/auth'
 import { UserContext } from '@src/contexts/UserContext'
 import { UserInfo } from '@src/components/users/UserInfo'
+import { NotificationContext } from '@src/components/Notification'
 
 export const ProfilePage: FC = () => {
   const { user } = useContext(UserContext)
   const { isLoading: isLoadingUser, data } = useQuery(['user'], { queryFn: () => getUser(user!.id) })
   const { mutateAsync, isLoading: isMutating } = useMutation({ mutationFn: updateProfile })
   const [resetCounter, setResetCounter] = useState(0)
+  const { setNotification } = useContext(NotificationContext)
 
   const onSubmit = async(data: any) => {
     await mutateAsync(data)
     setResetCounter(prev => prev + 1)
-    alert('Changed')
+    setNotification({ message: 'Password changed', color: 'success' })
   }
 
   if (isLoadingUser) return <CircularProgress/>

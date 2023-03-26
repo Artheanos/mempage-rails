@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
 
-import { getImagePosts } from '../../../api/queries/imagePosts'
-import { ImagePost } from '../../../interfaces/imagePosts'
-import { PostItem } from '../../../components/posts/PostItem'
+import { getImagePosts } from '@src/api/queries/imagePosts'
+import { ImagePost } from '@src/interfaces/imagePosts'
+import { PostItem } from '@src/components/posts/PostItem'
 
 const PAGE_SIZE = 2
 

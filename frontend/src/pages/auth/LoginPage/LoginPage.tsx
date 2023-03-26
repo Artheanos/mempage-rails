@@ -6,6 +6,7 @@ import { LoginForm, LoginInput } from './LoginForm'
 import { UserContext } from '@src/contexts/UserContext'
 import { localRoutes } from '@src/api/routesBuilder'
 import { login as loginMutation } from '@src/api/queries/auth'
+import { NotificationContext } from '@src/components/Notification'
 
 
 export const LoginPage: FC = () => {
@@ -14,11 +15,13 @@ export const LoginPage: FC = () => {
   const mutation = useMutation({
     mutationFn: loginMutation,
   })
+  const { setNotification } = useContext(NotificationContext)
 
   const onSubmit = (form: LoginInput) => {
     mutation.mutate(form, {
       onSuccess: (data) => {
         login({ ...data.user, token: data.token })
+        setNotification({ message: 'Successfully logged in', color: 'success' })
         navigate(localRoutes.imagePosts.root)
       },
     })
@@ -27,7 +30,7 @@ export const LoginPage: FC = () => {
   return (
     <div className="LoginPage">
       <h2 style={{ marginBottom: '3rem' }}>Login</h2>
-      <LoginForm onSubmit={onSubmit} isLoading={mutation.isLoading} error={mutation.error} action='login'/>
+      <LoginForm onSubmit={onSubmit} isLoading={mutation.isLoading} error={mutation.error} action="login"/>
     </div>
   )
 }

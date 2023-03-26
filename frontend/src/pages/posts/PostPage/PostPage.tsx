@@ -18,11 +18,13 @@ import { useScrollToTop } from '@src/utils/useScrollToTop'
 import { CommentsContainer } from './CommentsContainer'
 import { ControlPanel } from './ControlPanel'
 import { PostPageContext, PostPageContextValue } from './PostPageContext'
+import { NotificationContext } from '@src/components/Notification'
 
 
 export const PostPage: FC = () => {
   useScrollToTop()
   const navigate = useNavigate()
+  const { setNotification } = useContext(NotificationContext)
   const { id } = useParams()
   const { user } = useContext(UserContext)
   const [isEditing, setIsEditing] = useState(false)
@@ -34,7 +36,10 @@ export const PostPage: FC = () => {
 
   const { mutate: deletePost } = useMutation({
     mutationFn: (): Promise<void> => deleteImagePost(id!),
-    onSuccess: (): void => navigate(localRoutes.imagePosts.root),
+    onSuccess: (): void => {
+      setNotification({ message: 'Post has been deleted', color: 'warning' })
+      navigate(localRoutes.imagePosts.root)
+    },
   })
 
   const { mutate: updatePost } = useMutation({
