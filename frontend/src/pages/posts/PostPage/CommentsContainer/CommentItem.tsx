@@ -3,11 +3,11 @@ import { Delete } from '@mui/icons-material'
 import { FC, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Comment } from '../../../../interfaces/comments'
-import { formatDate } from '../../../../utils/dates'
-import { localRoutes } from '../../../../api/routesBuilder'
+import { Comment } from '@src/interfaces/comments'
+import { formatDate } from '@src/utils/dates'
+import { localRoutes } from '@src/api/routesBuilder'
 import { PostPageContext } from '../PostPageContext'
-import { UserContext } from '../../../../contexts/UserContext'
+import { UserContext } from '@src/contexts/UserContext'
 
 interface Props {
   comment: Comment

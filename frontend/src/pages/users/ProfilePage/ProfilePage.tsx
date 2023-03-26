@@ -2,11 +2,11 @@ import { FC, useContext, useState } from 'react'
 import { Box, CircularProgress } from '@mui/material'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { getUser } from '../../../api/queries/users'
+import { getUser } from '@src/api/queries/users'
 import { ProfileForm } from './ProfileForm'
-import { updateProfile } from '../../../api/queries/auth'
-import { UserContext } from '../../../contexts/UserContext'
-import { UserInfo } from '../../../components/users/UserInfo'
+import { updateProfile } from '@src/api/queries/auth'
+import { UserContext } from '@src/contexts/UserContext'
+import { UserInfo } from '@src/components/users/UserInfo'
 
 export const ProfilePage: FC = () => {
   const { user } = useContext(UserContext)

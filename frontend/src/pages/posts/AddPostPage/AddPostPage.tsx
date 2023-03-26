@@ -3,8 +3,8 @@ import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { PostForm, PostInput } from './PostForm'
-import { apiRoutes, localRoutes } from '../../../api/routesBuilder'
-import { jsonFetch } from '../../../utils/api'
+import { apiRoutes, localRoutes } from '@src/api/routesBuilder'
+import { jsonFetch } from '@src/utils/api'
 
 export const AddPostPage: FC = () => {
   const navigate = useNavigate()

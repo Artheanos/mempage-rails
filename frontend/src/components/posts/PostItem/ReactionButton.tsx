@@ -1,12 +1,12 @@
 import { Box, Button, ClickAwayListener, Tooltip, Typography } from '@mui/material'
 import { FC, useContext, useMemo, useState } from 'react'
 import { SvgIconComponent } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 
 import { PostItemContext } from './PostItemContext'
-import { ReactionValue } from '../../../interfaces/reactions'
-import { UserContext } from '../../../contexts/UserContext'
-import { Link } from 'react-router-dom'
-import { localRoutes } from '../../../api/routesBuilder'
+import { ReactionValue } from '@src/interfaces/reactions'
+import { UserContext } from '@src/contexts/UserContext'
+import { localRoutes } from '@src/api/routesBuilder'
 
 interface Props {
   reaction: ReactionValue

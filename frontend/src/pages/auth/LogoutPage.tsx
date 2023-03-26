@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
-import { UserContext } from '../../contexts/UserContext'
+import { UserContext } from '@src/contexts/UserContext'
 import { Navigate } from 'react-router-dom'
-import { localRoutes } from '../../api/routesBuilder'
+import { localRoutes } from '@src/api/routesBuilder'
 
 export const LogoutPage = () => {
   const { user, logout } = useContext(UserContext)

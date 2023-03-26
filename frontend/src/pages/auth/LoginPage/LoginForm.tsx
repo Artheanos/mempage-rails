@@ -3,10 +3,10 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
-import { localRoutes } from '../../../api/routesBuilder'
-import { merge, serverToFormErrors } from '../../../utils/api'
-import { StyledButton } from '../../../components/forms/StyledButton'
-import { StyledInput } from '../../../components/forms/StyledInput'
+import { localRoutes } from '@src/api/routesBuilder'
+import { merge, serverToFormErrors } from '@src/utils/api'
+import { StyledButton } from '@src/components/forms/StyledButton'
+import { StyledInput } from '@src/components/forms/StyledInput'
 
 
 interface Props {

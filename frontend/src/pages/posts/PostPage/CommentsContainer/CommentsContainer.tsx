@@ -4,8 +4,8 @@ import { FC, useContext } from 'react'
 import { CommentForm } from './CommentForm'
 import { CommentItem } from './CommentItem'
 import { PostPageContext } from '../PostPageContext'
-import { UserContext } from '../../../../contexts/UserContext'
-import { localRoutes } from '../../../../api/routesBuilder'
+import { UserContext } from '@src/contexts/UserContext'
+import { localRoutes } from '@src/api/routesBuilder'
 import { Link } from 'react-router-dom'
 
 export const CommentsContainer: FC = () => {

@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { FC } from 'react'
-import { Box, Card, CardContent, TextField } from '@mui/material'
-import { User } from '../../interfaces/auth'
 import Typography from '@mui/material/Typography'
+import { Box, Card, CardContent, TextField } from '@mui/material'
+import { FC } from 'react'
+
+import { User } from '@src/interfaces/auth'
 
 export const UserInfo: FC<{ user: User }> = ({ user }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>

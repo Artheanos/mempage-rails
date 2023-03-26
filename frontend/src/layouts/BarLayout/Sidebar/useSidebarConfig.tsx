@@ -1,8 +1,9 @@
 import { useContext } from 'react'
-import { UserContext } from '../../../contexts/UserContext'
-import { localRoutes } from '../../../api/routesBuilder'
 import { UploadFile, VerifiedUser } from '@mui/icons-material'
+
+import { localRoutes } from '@src/api/routesBuilder'
 import { SidebarEntry } from './SidebarEntry'
+import { UserContext } from '@src/contexts/UserContext'
 
 interface EntryConfig {
   path: string

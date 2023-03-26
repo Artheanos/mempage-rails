@@ -3,9 +3,9 @@ import * as React from 'react'
 import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { LoginInput } from '../../auth/LoginPage/LoginForm'
-import { StyledButton } from '../../../components/forms/StyledButton'
-import { User } from '../../../interfaces/auth'
+import { LoginInput } from '@src/pages/auth/LoginPage/LoginForm'
+import { StyledButton } from '@src/components/forms/StyledButton'
+import { User } from '@src/interfaces/auth'
 
 interface FormInput extends LoginInput {
   confirmPassword: string

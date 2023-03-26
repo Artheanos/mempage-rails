@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
-import { ImagePost } from '../../../interfaces/imagePosts'
-import { ReactionValue } from '../../../interfaces/reactions'
+import { ImagePost } from '@src/interfaces/imagePosts'
+import { ReactionValue } from '@src/interfaces/reactions'
 
 interface PostItemContextValue {
   handleReaction: (reaction: ReactionValue) => void

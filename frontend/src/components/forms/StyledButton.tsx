@@ -1,4 +1,4 @@
-import { Button, ButtonProps, CircularProgress, useTheme } from '@mui/material'
+import { Button, ButtonProps, CircularProgress } from '@mui/material'
 import { createRef, CSSProperties, FC } from 'react'
 
 interface Props extends ButtonProps {

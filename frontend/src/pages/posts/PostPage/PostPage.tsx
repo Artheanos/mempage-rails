@@ -3,17 +3,17 @@ import { FC, useContext, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { createComment, deleteComment } from '../../../api/queries/comments'
+import { createComment, deleteComment } from '@src/api/queries/comments'
 import {
   deleteImagePost,
   getImagePost,
   ImagePostUpdateVariables,
   updateImagePost,
-} from '../../../api/queries/imagePosts'
-import { localRoutes } from '../../../api/routesBuilder'
-import { PostItem } from '../../../components/posts/PostItem'
-import { UserContext } from '../../../contexts/UserContext'
-import { useScrollToTop } from '../../../utils/useScrollToTop'
+} from '@src/api/queries/imagePosts'
+import { localRoutes } from '@src/api/routesBuilder'
+import { PostItem } from '@src/components/posts/PostItem'
+import { UserContext } from '@src/contexts/UserContext'
+import { useScrollToTop } from '@src/utils/useScrollToTop'
 
 import { CommentsContainer } from './CommentsContainer'
 import { ControlPanel } from './ControlPanel'

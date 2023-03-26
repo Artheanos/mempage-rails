@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 import { ThumbDown, ThumbUp } from '@mui/icons-material'
 import { useMutation } from '@tanstack/react-query'
 
-import { localRoutes } from '../../../api/routesBuilder'
-import { deleteReaction, upsertReaction } from '../../../api/queries/reactions'
-import { ImagePost } from '../../../interfaces/imagePosts'
+import { localRoutes } from '@src/api/routesBuilder'
+import { deleteReaction, upsertReaction } from '@src/api/queries/reactions'
+import { ImagePost } from '@src/interfaces/imagePosts'
 import { PostItemContext } from './PostItemContext'
 import { ReactionButton } from './ReactionButton'
-import { ReactionValue } from '../../../interfaces/reactions'
-import { PostPageContext } from '../../../pages/posts/PostPage/PostPageContext'
-import { StyledInput } from '../../forms/StyledInput'
+import { ReactionValue } from '@src/interfaces/reactions'
+import { PostPageContext } from '@src/pages/posts/PostPage/PostPageContext'
+import { StyledInput } from '@src/components/forms/StyledInput'
 
 interface Props {
   post: ImagePost

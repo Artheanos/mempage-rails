@@ -2,10 +2,10 @@ import { FC, useContext } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { Navigate } from 'react-router-dom'
 
-import { localRoutes } from '../../../api/routesBuilder'
+import { localRoutes } from '@src/api/routesBuilder'
 import { LoginForm, LoginInput } from '../LoginPage/LoginForm'
-import { register } from '../../../api/queries/auth'
-import { UserContext } from '../../../contexts/UserContext'
+import { register } from '@src/api/queries/auth'
+import { UserContext } from '@src/contexts/UserContext'
 
 
 export const RegisterPage: FC = () => {

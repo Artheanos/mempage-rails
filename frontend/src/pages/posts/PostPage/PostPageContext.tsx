@@ -1,8 +1,8 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
 
-import { CommentFormData } from '../../../interfaces/comments'
-import { ImagePost } from '../../../interfaces/imagePosts'
-import { ImagePostUpdateVariables } from '../../../api/queries/imagePosts'
+import { CommentFormData } from '@src/interfaces/comments'
+import { ImagePost } from '@src/interfaces/imagePosts'
+import { ImagePostUpdateVariables } from '@src/api/queries/imagePosts'
 
 export interface PostPageContextValue {
   createComment: (form: CommentFormData) => Promise<void>

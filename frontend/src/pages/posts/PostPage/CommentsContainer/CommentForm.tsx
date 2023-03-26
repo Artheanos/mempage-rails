@@ -3,8 +3,8 @@ import { FC, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PostPageContext } from '../PostPageContext'
-import { StyledButton } from '../../../../components/forms/StyledButton'
-import { StyledInput } from '../../../../components/forms/StyledInput'
+import { StyledButton } from '@src/components/forms/StyledButton'
+import { StyledInput } from '@src/components/forms/StyledInput'
 
 export const CommentForm: FC = () => {
   const { createComment, isCreatingComment } = useContext(PostPageContext)

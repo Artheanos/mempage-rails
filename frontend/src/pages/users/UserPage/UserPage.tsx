@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { getUser } from '../../../api/queries/users'
+import { getUser } from '@src/api/queries/users'
 import { Box, CircularProgress } from '@mui/material'
-import { UserInfo } from '../../../components/users/UserInfo'
+import { UserInfo } from '@src/components/users/UserInfo'
 
 interface Props {
 }

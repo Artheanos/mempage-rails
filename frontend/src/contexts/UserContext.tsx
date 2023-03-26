@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from 'react'
 import { createTheme, Theme } from '@mui/material'
 
-import { User } from '../interfaces/auth'
+import { User } from '@src/interfaces/auth'
 import { ThemeOptions } from '@mui/material/styles/createTheme'
-import { useLocalStorage } from '../utils/storage'
+import { useLocalStorage } from '@src/utils/storage'
 import { useMutation } from '@tanstack/react-query'
-import { refreshToken } from '../api/queries/auth'
-import { Minutes } from '../utils/time'
+import { refreshToken } from '@src/api/queries/auth'
+import { Minutes } from '@src/utils/time'
 
 type ThemeMode = 'dark' | 'light'
 

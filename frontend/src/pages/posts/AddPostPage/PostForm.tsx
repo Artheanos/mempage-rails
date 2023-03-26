@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { FC } from 'react'
 import { Alert, Box, TextField } from '@mui/material'
-import { StyledButton } from '../../../components/forms/StyledButton'
+import { StyledButton } from '@src/components/forms/StyledButton'
 import { CheckCircle } from '@mui/icons-material'
 
 interface Props {

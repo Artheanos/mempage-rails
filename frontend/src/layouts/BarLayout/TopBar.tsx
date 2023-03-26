@@ -1,10 +1,11 @@
 import { FC, useContext } from 'react'
-import { alpha, AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import { alpha, AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { localRoutes } from '../../api/routesBuilder'
 import { Person, StarHalf, WbSunny } from '@mui/icons-material'
-import { UserContext } from '../../contexts/UserContext'
+
+import { localRoutes } from '@src/api/routesBuilder'
+import { UserContext } from '@src/contexts/UserContext'
 
 interface Props {
   setOpen(open: boolean): void
