@@ -17,6 +17,6 @@ module ResultRenderer
   def render_failure(failure)
     errors = failure[:errors] || {}
     status = failure[:status] || :bad_request
-    render json: { errors: errors }, status: status
+    render json: { errors: }, status:
   end
 end

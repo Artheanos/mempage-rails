@@ -16,7 +16,7 @@ RSpec.describe Api::ReactionsController, type: :controller do
         reaction: :like
       }
     end
-    let(:action) { post :upsert, params: params }
+    let(:action) { post :upsert, params: }
 
     context 'when params are valid' do
       let(:expected_reaction) do
@@ -36,7 +36,7 @@ RSpec.describe Api::ReactionsController, type: :controller do
       end
 
       context 'when reaction exists' do
-        before { create :reaction, image_post: image_post, user: user, reaction: :dislike }
+        before { create :reaction, image_post:, user:, reaction: :dislike }
 
         it 'updates reaction' do
           expect { action }.not_to change(Reaction, :count)
@@ -64,10 +64,10 @@ RSpec.describe Api::ReactionsController, type: :controller do
 
   describe '#destroy' do
     let(:params) { { image_post_id: image_post.id } }
-    let(:action) { delete :destroy, params: params }
+    let(:action) { delete :destroy, params: }
 
     context 'when reaction exists' do
-      before { create :reaction, image_post: image_post, user: user }
+      before { create :reaction, image_post:, user: }
 
       it 'destroys the reaction' do
         expect { action }.to change(Reaction, :count).from(1).to(0)

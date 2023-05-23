@@ -23,9 +23,9 @@ RSpec.describe Reaction do
         let(:user) { create(:user) }
         let(:image_post) { create(:image_post) }
         let(:reaction) { 0 }
-        subject { described_class.new(user: user, image_post: image_post, reaction: reaction_2) }
+        subject { described_class.new(user:, image_post:, reaction: reaction_2) }
 
-        before { create(:reaction, user: user, image_post: image_post, reaction: reaction) }
+        before { create(:reaction, user:, image_post:, reaction:) }
 
         describe 'with the same reaction' do
           let(:reaction_2) { reaction }

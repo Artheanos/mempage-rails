@@ -9,8 +9,8 @@ RSpec.describe Api::Comments::CreateContract do
   let(:image_post_id) { image_post.id }
   let(:params) do
     {
-      content: content,
-      image_post_id: image_post_id
+      content:,
+      image_post_id:
     }
   end
   let(:result) { contract.call(params) }

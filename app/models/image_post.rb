@@ -8,11 +8,12 @@ class ImagePost < ApplicationRecord
   has_many :post_hashtags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
   has_one_attached :image
+  accepts_nested_attributes_for :reactions
 
   validates :header, presence: true
 
   def attach_hashtag(name)
-    hashtag = Hashtag.find_or_create_by(name: name)
-    PostHashtag.create!(image_post: self, hashtag: hashtag)
+    hashtag = Hashtag.find_or_create_by(name:)
+    PostHashtag.create!(image_post: self, hashtag:)
   end
 end

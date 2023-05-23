@@ -9,7 +9,7 @@ RSpec.describe Api::CommentsController, type: :controller do
   let(:image_post_id) { image_post.id }
 
   let(:comment_params) do
-    { content: 'hello world', image_post_id: image_post_id }
+    { content: 'hello world', image_post_id: }
   end
 
   describe '#create' do

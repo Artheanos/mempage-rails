@@ -15,8 +15,8 @@ RSpec.describe Api::UsersController, type: :controller do
 
     context 'when params are valid' do
       it 'returns the user with proper values' do
-        3.times { create(:image_post, user: user) }
-        4.times { create(:comment, user: user) }
+        3.times { create(:image_post, user:) }
+        4.times { create(:comment, user:) }
         expect(json_response).to include(
           'email' => user.email,
           'comment_count' => 4,
@@ -45,7 +45,7 @@ RSpec.describe Api::UsersController, type: :controller do
   end
 
   describe '#update' do
-    let(:action) { put :update, params: { id: '0', password: password } }
+    let(:action) { put :update, params: { id: '0', password: } }
 
     before { http_login(user) }
 

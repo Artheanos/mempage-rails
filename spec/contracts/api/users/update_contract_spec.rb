@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::Users::UpdateContract do
   subject(:contract) { described_class.new(current_user: create(:user)) }
   let(:password) { 'password' }
-  let(:params) { { password: password } }
+  let(:params) { { password: } }
   let(:result) { contract.call(params) }
 
   context 'when valid' do

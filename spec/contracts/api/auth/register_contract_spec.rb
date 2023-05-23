@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::Auth::RegisterContract do
-  subject(:contract) { described_class.new(current_user: current_user) }
+  subject(:contract) { described_class.new(current_user:) }
   let(:current_user) { create(:user) }
   let(:email) { 'user@email.com' }
   let(:password) { 'user' }
   let(:params) do
     {
-      email: email,
-      password: password
+      email:,
+      password:
     }
   end
   let(:result) { contract.call(params) }

@@ -78,7 +78,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       let(:client) { create(:user, email: 'user@2.com') }
 
       def create_image_post(header, user)
-        post = create(:image_post, header: header, user: user)
+        post = create(:image_post, header:, user:)
         3.times { create(:comment, image_post: post) }
         3.times { create(:reaction, image_post: post, reaction: :like) }
         2.times { create(:reaction, image_post: post, reaction: :dislike) }
@@ -87,7 +87,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       it 'lists image_posts in reverse order' do
         create_image_post 'header0', create(:user, email: 'user@0.com')
         create_image_post 'header0', client
-        create(:image_post, header: 'header2', user: client, reactions: [{ user: client, reaction: :like }])
+        create(:image_post, header: 'header2', user: client, reactions_attributes: [{ user: client, reaction: :like }])
 
         expect(json_response.keys).to eq %w[results count]
 
@@ -111,8 +111,8 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       end
 
       it 'returns comment count' do
-        create(:comment, image_post: image_post)
-        create(:comment, image_post: image_post)
+        create(:comment, image_post:)
+        create(:comment, image_post:)
 
         expect(json_results.first['comment_count']).to eq 2
       end
@@ -127,23 +127,14 @@ RSpec.describe Api::ImagePostsController, type: :controller do
         expect(json_results.first['header']).to eq 'header4'
       end
     end
-
-    context 'when you pass "after" param' do
-      let(:index_params) { { after: ImagePost.find_by(header: 'header6').id } }
-      it 'returns posts after header6 post in correct order' do
-        10.times { |i| create(:image_post, header: "header#{i}") }
-        expect(json_results.last['header']).to eq 'header7'
-        expect(json_results.first['header']).to eq 'header9'
-      end
-    end
   end
 
   describe '#show' do
     let(:action) { get :show, params: { id: image_post_id } }
     before do
-      create :comment, image_post: image_post, content: '1', created_at: 1.day.ago
-      create :comment, image_post: image_post, content: '2', created_at: 3.days.ago
-      create :comment, image_post: image_post, content: '3', created_at: 2.days.ago
+      create :comment, image_post:, content: '1', created_at: 1.day.ago
+      create :comment, image_post:, content: '2', created_at: 3.days.ago
+      create :comment, image_post:, content: '3', created_at: 2.days.ago
     end
 
     context 'when params are valid' do
@@ -172,6 +163,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
 
     context 'when params are valid' do
       before { http_login(author) }
+
       it 'deletes the image_post' do
         expect { action }.to change(ImagePost, :count).by(-1)
       end

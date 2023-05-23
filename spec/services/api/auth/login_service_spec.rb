@@ -11,7 +11,7 @@ RSpec.describe Api::Auth::LoginService do
     it 'returns the proper params' do
       allow(Api::Auth::JsonWebToken).to receive(:encode).and_return('token123')
 
-      expect(subject.call.success[:json]).to eq({ token: 'token123', user: user })
+      expect(subject.call.success[:json]).to eq({ token: 'token123', user: })
     end
   end
 

@@ -6,7 +6,7 @@ RSpec.describe Api::Auth::AuthenticateUser do
   let(:subject) { described_class.new(headers) }
   let(:user) { create(:user) }
   let(:headers) do
-    { 'Authentication' => Api::Auth::JsonWebToken.encode({ user_id: user.id }) }
+    { 'Authorization' => Api::Auth::JsonWebToken.encode({ user_id: user.id }) }
   end
 
   context 'when params are valid' do
@@ -17,6 +17,7 @@ RSpec.describe Api::Auth::AuthenticateUser do
 
   context 'when params are invalid' do
     let(:headers) { {} }
+
     it 'returns nil' do
       expect(subject.call).to be_nil
     end

@@ -9,7 +9,7 @@ module Api
 
       def execute
         if user
-          Success(json: { token: user.generate_jwt, user: user })
+          Success(json: { token: user.generate_jwt, user: })
         else
           Failure(errors: {}, status: :unauthorized)
         end

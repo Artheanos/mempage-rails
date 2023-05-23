@@ -6,24 +6,7 @@ module Api
     before_action :set_image_post, only: %i[show destroy update]
 
     def index
-      query = ImagePost.page(params[:page] || 1)
-      comment_counts = query.left_joins(:comments).group('id').count('comments.id')
-      like_counts = query.left_joins(:reactions).where('reactions.reaction': :like).group('id').count('reactions.id')
-      dislike_counts = query.left_joins(:reactions).where('reactions.reaction': :dislike).group('id').count('reactions.id')
-      client_reactions = query.left_joins(:reactions).where('reactions.user': current_user).pluck('id', 'reactions.reaction').to_h
-
-      render json: {
-        results: ActiveModel::Serializer::CollectionSerializer.new(
-          query.includes(:user, image_attachment: :blob).order(id: :desc),
-          serializer: ImagePostSerializer,
-          current_user: current_user,
-          comment_counts: comment_counts,
-          like_counts: like_counts,
-          dislike_counts: dislike_counts,
-          client_reactions: client_reactions,
-        ),
-        count: ImagePost.count
-      }
+      ImagePosts::List.new(current_user, params[:page]).call { |result| render_result(result) }
     end
 
     def create

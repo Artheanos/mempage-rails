@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
 
   def validate_params(contract)
     permitted_params = params.permit(contract.params.rules.keys).to_h
-    contract_result = contract.new(current_user: current_user).call permitted_params
+    contract_result = contract.new(current_user:).call permitted_params
     errors = contract_result.errors.to_h
     raise(::ValidationError, errors) if errors.present?
 

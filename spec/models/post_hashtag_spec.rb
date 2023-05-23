@@ -17,7 +17,7 @@ RSpec.describe PostHashtag do
   describe 'validation' do
     let(:hashtag) { create(:hashtag) }
     let(:image_post) { create(:image_post) }
-    let(:post_hashtag_2) { described_class.new(hashtag: hashtag, image_post: image_post) }
+    let(:post_hashtag_2) { described_class.new(hashtag:, image_post:) }
 
     describe 'image_post_id' do
       before { post_hashtag_1.save }
@@ -29,7 +29,7 @@ RSpec.describe PostHashtag do
       end
 
       describe 'when post hashtag with the same image_post_id and hashtag_id exists' do
-        let(:post_hashtag_1) { described_class.new(hashtag: hashtag, image_post: image_post) }
+        let(:post_hashtag_1) { described_class.new(hashtag:, image_post:) }
 
         it { expect(post_hashtag_2.valid?).to be false }
       end

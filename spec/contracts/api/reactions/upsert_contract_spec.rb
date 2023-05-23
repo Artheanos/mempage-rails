@@ -9,8 +9,8 @@ RSpec.describe Api::Reactions::UpsertContract do
   let(:image_post_id) { image_post.id }
   let(:params) do
     {
-      reaction: reaction,
-      image_post_id: image_post_id
+      reaction:,
+      image_post_id:
     }
   end
   let(:result) { contract.call(params) }

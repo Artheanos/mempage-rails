@@ -6,7 +6,7 @@ end
 
 random_users = 3.times.map do
   email = Faker::Internet.email
-  User.create(email: email, password: email)
+  User.create(email:, password: email)
 end
 
 random_posts = 3.times.map do
