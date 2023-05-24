@@ -2,12 +2,12 @@
 
 module Api
   module Auth
-    class AuthenticateUser
+    class AuthenticateUser < ApplicationService
       def initialize(headers = {})
         @headers = headers
       end
 
-      def call
+      def execute
         user
       end
 

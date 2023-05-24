@@ -7,7 +7,7 @@ module Api
     def create
       authorize Comment
       params = validate_params Comments::CreateContract
-      Comments::Create.new(current_user, params).call { |r| render_result r }
+      Comments::Create.call(current_user, params) { |r| render_result r }
     end
 
     def destroy

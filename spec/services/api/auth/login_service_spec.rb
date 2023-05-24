@@ -19,7 +19,7 @@ RSpec.describe Api::Auth::LoginService do
     let(:login_password) { "#{user.password}123" }
 
     it 'returns proper values' do
-      expect(subject.call.failure).to eq({ errors: {}, status: :unauthorized })
+      expect(subject.call.failure).to eq({ status: :unauthorized })
     end
   end
 end

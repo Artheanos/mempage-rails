@@ -27,6 +27,12 @@ RSpec.describe Api::Auth::LoginController, type: :controller do
       it 'returns unauthorized status' do
         expect(response).to have_http_status(:unauthorized)
       end
+
+      it 'returns errors' do
+        expect(json_response).to eq({
+                                      'errors' => { 'email' => ['Invalid credentials'] }
+                                    })
+      end
     end
   end
 end

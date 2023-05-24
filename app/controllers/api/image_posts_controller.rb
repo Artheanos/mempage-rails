@@ -6,7 +6,7 @@ module Api
     before_action :set_image_post, only: %i[show destroy update]
 
     def index
-      ImagePosts::List.new(current_user, params[:page]).call { |result| render_result(result) }
+      ImagePosts::List.call(current_user, params[:page]) { |result| render_result(result) }
     end
 
     def create

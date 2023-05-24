@@ -4,7 +4,10 @@ module Api
   module Auth
     class LoginController < ApplicationController
       def create
-        LoginService.new(login_params).call { |result| render_result(result) }
+        LoginService.call(login_params) do |result|
+          result.success { |data| render_success data }
+          result.failure { |data| render_failure data.merge(errors: { email: ['Invalid credentials'] }) }
+        end
       end
 
       private

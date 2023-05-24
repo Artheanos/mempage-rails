@@ -5,7 +5,7 @@ module Api
     class RegisterController < ApplicationController
       def create
         params = validate_params RegisterContract
-        RegisterService.new(params).call { |result| render_result(result) }
+        RegisterService.call(params) { |result| render_result(result) }
       end
     end
   end

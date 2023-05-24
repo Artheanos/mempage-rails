@@ -6,8 +6,8 @@ require 'dry/matcher/result_matcher'
 class ApplicationService
   include Dry::Monads::Result::Mixin
 
-  def self.call(...)
-    new(...).call
+  def self.call(*args, **kwargs, &)
+    new(*args, **kwargs).call(&)
   end
 
   def call(&block)

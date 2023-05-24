@@ -11,7 +11,7 @@ RSpec.describe Api::Auth::AuthenticateUser do
 
   context 'when params are valid' do
     it 'returns the user' do
-      expect(subject.call.id).to eq user.id
+      expect(subject.call.success.id).to eq user.id
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe Api::Auth::AuthenticateUser do
     let(:headers) { {} }
 
     it 'returns nil' do
-      expect(subject.call).to be_nil
+      expect(subject.call.success).to be_nil
     end
   end
 end

@@ -3,11 +3,11 @@
 class ApplicationController < ActionController::API
   include ::ResultRenderer
   include Pundit::Authorization
-  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   rescue_from ::ValidationError, with: :validation_error
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def current_user
-    @current_user ||= Api::Auth::AuthenticateUser.new(request.headers).call
+    @current_user ||= Api::Auth::AuthenticateUser.call(request.headers).success
   end
 
   def validate_params(contract)

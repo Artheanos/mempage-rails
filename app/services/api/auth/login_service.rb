@@ -11,7 +11,7 @@ module Api
         if user
           Success(json: { token: user.generate_jwt, user: })
         else
-          Failure(errors: {}, status: :unauthorized)
+          Failure(status: :unauthorized)
         end
       end
 

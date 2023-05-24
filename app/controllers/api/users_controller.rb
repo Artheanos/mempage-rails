@@ -16,7 +16,7 @@ module Api
     def update
       authorize User
       params = validate_params Users::UpdateContract
-      Users::Update.new(current_user, params).call { |result| render_result result }
+      Users::Update.call(current_user, params) { |result| render_result result }
     end
 
     private

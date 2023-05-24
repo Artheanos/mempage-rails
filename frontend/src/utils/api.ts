@@ -19,7 +19,7 @@ export const jsonFetch = async(path: string, options?: AxiosRequestConfig): Prom
 
 export const serverToFormErrors = (errors: any) => {
   const result: Record<string, any> = {}
-  for (const key in errors) result[key] = { type: 'idk', message: errors[key][0] }
+  for (const key in errors) result[key] = { type: 'serverError', message: errors[key][0] }
   return result
 }
 

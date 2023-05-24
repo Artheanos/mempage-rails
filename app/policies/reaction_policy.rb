@@ -2,4 +2,5 @@
 
 class ReactionPolicy < ApplicationPolicy
   alias upsert? logged_in?
+  alias destroy? logged_in?
 end

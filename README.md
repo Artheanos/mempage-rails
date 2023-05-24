@@ -22,7 +22,7 @@ Stop the minio container.
 
 ## Setup using Docker
 
-If you're using Docker in `.env` set
+In `.env` set
 - `DATABASE_URL` to `db`
 - `MINIO_HOST` to your host's local IP. (Not `localhost`)
 
