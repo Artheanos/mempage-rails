@@ -1,9 +1,16 @@
 version: "1.0"
+
 services:
   backend:
     build: ./
     ports:
       - 3000:3000
+    volumes:
+      - './:/app'
+    depends_on:
+      - db
+      - minio
+
   minio:
     image: minio/minio
     ports:
@@ -13,8 +20,22 @@ services:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: adminadmin
     volumes:
-      - './tmp/s3:/data'
-    command: server --console-address :9001 /data
+      - 'minio-volume:/data'
+    command: server --console-address 0.0.0.0:9001 /data
+
+  db:
+    image: postgres:14.6-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres123
+    volumes:
+      - 'db-volume:/var/lib/postgresql/data'
+
+volumes:
+  db-volume:
+  minio-volume:
+
 networks:
   default:
     name: mempage-network

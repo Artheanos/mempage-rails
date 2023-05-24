@@ -2,7 +2,7 @@
 
 class HomeController < ActionController::Base
   def index
-    html_path = "#{Rails.root}/public/dist/index.html"
+    html_path = "#{Rails.root}/public/index.html"
     render(file: html_path, layout: false) if File.exist?(html_path)
   end
 end

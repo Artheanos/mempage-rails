@@ -3,11 +3,11 @@
 module Api
   module ImagePosts
     class List < ApplicationService
-      attr_reader :page, :current_user
+      attr_reader :current_user, :page
 
       def initialize(current_user, page)
-        @page = page || 1
         @current_user = current_user
+        @page = page || 1
       end
 
       def execute

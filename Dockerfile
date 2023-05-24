@@ -1,7 +1,7 @@
 FROM ruby:3.2.0-alpine
 
-# SQLITE
-RUN apk --update add build-base tzdata sqlite-dev && rm -rf /var/cache/apk
+# POSTGRES
+RUN apk --update add build-base tzdata postgresql-dev
 
 # INIT DIR
 ENV INSTALL_PATH /app/
@@ -18,6 +18,5 @@ RUN bundle
 
 # INIT APP
 COPY ./ $INSTALL_PATH
-RUN bundle exec rails db:migrate
 
 CMD bundle exec rails s -b 0.0.0.0 -p 3000

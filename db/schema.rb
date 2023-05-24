@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_25_140018) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,10 +44,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_140018) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content", null: false
-    t.integer "image_post_id", null: false
+    t.bigint "image_post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["image_post_id"], name: "index_comments_on_image_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -59,13 +62,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_140018) do
     t.string "header", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_image_posts_on_user_id"
   end
 
   create_table "post_hashtags", force: :cascade do |t|
-    t.integer "image_post_id", null: false
-    t.integer "hashtag_id", null: false
+    t.bigint "image_post_id", null: false
+    t.bigint "hashtag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
@@ -74,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_140018) do
   end
 
   create_table "reactions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "image_post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "image_post_id", null: false
     t.integer "reaction", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

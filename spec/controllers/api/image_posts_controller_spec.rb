@@ -85,7 +85,8 @@ RSpec.describe Api::ImagePostsController, type: :controller do
       end
 
       it 'lists image_posts in reverse order' do
-        create_image_post 'header0', create(:user, email: 'user@0.com')
+        user = create(:user, email: 'user@0.com')
+        create_image_post 'header0', user
         create_image_post 'header0', client
         create(:image_post, header: 'header2', user: client, reactions_attributes: [{ user: client, reaction: :like }])
 
@@ -97,7 +98,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
                                                 'dislikes' => 0,
                                                 'header' => 'header2',
                                                 'likes' => 1,
-                                                'user' => { 'email' => 'user@2.com', 'id' => 1 }
+                                                'user' => { 'email' => 'user@2.com', 'id' => client.id }
                                               })
 
         expect(json_results.last).to include({
@@ -106,7 +107,7 @@ RSpec.describe Api::ImagePostsController, type: :controller do
                                                'dislikes' => 2,
                                                'header' => 'header0',
                                                'likes' => 3,
-                                               'user' => { 'email' => 'user@0.com', 'id' => 2 }
+                                               'user' => { 'email' => 'user@0.com', 'id' => user.id }
                                              })
       end
 
